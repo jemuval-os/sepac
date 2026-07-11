@@ -1,0 +1,6 @@
+{
+  "name": "SEPAC Website",
+  "description": "A full-stack, faith-inspired bilingual website for Saint Esprit Protestant Alumni Community featuring user authentication, a member directory, real-time post feed, event management, photo gallery, prayer requests, and a comprehensive admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
