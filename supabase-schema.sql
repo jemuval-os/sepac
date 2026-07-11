@@ -58,7 +58,7 @@ begin
     new.raw_user_meta_data->>'avatar_url',
     new.raw_user_meta_data->>'school_photo_url',
     case when new.email = 'jemuvalos@gmail.com' then 'super_admin' else 'member' end,
-    case when new.email = 'jemuvalos@gmail.com' then true else false end
+    true
   );
   return new;
 end;
@@ -222,6 +222,7 @@ alter table public.site_settings enable row level security;
 create policy "profiles_select_all" on public.profiles for select using (true);
 create policy "profiles_update_own" on public.profiles for update using (auth.uid() = id);
 create policy "profiles_update_admin" on public.profiles for update using (public.is_admin());
+create policy "profiles_delete_admin" on public.profiles for delete using (public.is_admin());
 
 -- Posts: approved posts are public; authors see their own pending/rejected posts; admins see all.
 create policy "posts_select" on public.posts for select using (
@@ -229,10 +230,12 @@ create policy "posts_select" on public.posts for select using (
 );
 create policy "posts_insert_own" on public.posts for insert with check (auth.uid() = author_id);
 create policy "posts_update_admin" on public.posts for update using (public.is_admin());
+create policy "posts_delete_admin" on public.posts for delete using (public.is_admin());
 
 -- Comments: readable by anyone; only the comment author can insert as themselves.
 create policy "comments_select" on public.comments for select using (true);
 create policy "comments_insert_own" on public.comments for insert with check (auth.uid() = author_id);
+create policy "comments_delete_admin" on public.comments for delete using (public.is_admin() or auth.uid() = author_id);
 
 -- Likes: readable by anyone; users toggle their own like only.
 create policy "likes_select" on public.likes for select using (true);
@@ -259,13 +262,16 @@ create policy "prayers_select" on public.prayer_requests for select using (
 );
 create policy "prayers_insert_own" on public.prayer_requests for insert with check (auth.uid() = author_id);
 create policy "prayers_update" on public.prayer_requests for update using (auth.uid() is not null);
+create policy "prayers_delete_admin" on public.prayer_requests for delete using (public.is_admin() or auth.uid() = author_id);
 
 create policy "prayer_comments_select" on public.prayer_comments for select using (true);
 create policy "prayer_comments_insert_own" on public.prayer_comments for insert with check (auth.uid() = author_id);
+create policy "prayer_comments_delete_admin" on public.prayer_comments for delete using (public.is_admin() or auth.uid() = author_id);
 
 -- Announcements: public read; admin write.
 create policy "announcements_select" on public.announcements for select using (true);
 create policy "announcements_insert_admin" on public.announcements for insert with check (public.is_admin());
+create policy "announcements_delete_admin" on public.announcements for delete using (public.is_admin());
 
 -- Advertisements: public read; admin write/delete.
 create policy "ads_select" on public.advertisements for select using (true);

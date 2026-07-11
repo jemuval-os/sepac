@@ -41,12 +41,15 @@ interface SEPACContextProps {
 
   approveMember: (id: string, approved: boolean) => Promise<boolean>;
   updateMemberRole: (id: string, role: UserRole) => Promise<boolean>;
+  deleteMember: (id: string) => Promise<boolean>;
 
   createPost: (title: string, content: string, category: Post['category'], imageUrl?: string) => Promise<boolean>;
   updatePostStatus: (id: string, status: Post['status']) => Promise<boolean>;
+  deletePost: (id: string) => Promise<boolean>;
   likePost: (postId: string) => Promise<boolean>;
   addComment: (postId: string, content: string) => Promise<boolean>;
   getCommentsForPost: (postId: string) => Promise<Comment[]>;
+  deleteComment: (id: string) => Promise<boolean>;
 
   createEvent: (title: string, description: string, date: string, location: string, imageUrl?: string) => Promise<boolean>;
   rsvpEvent: (eventId: string) => Promise<boolean>;
@@ -62,8 +65,11 @@ interface SEPACContextProps {
   submitPrayer: (content: string, visibility: PrayerRequest['visibility']) => Promise<boolean>;
   prayForRequest: (id: string) => Promise<boolean>;
   addPrayerComment: (id: string, content: string) => Promise<boolean>;
+  deletePrayerRequest: (id: string) => Promise<boolean>;
+  deletePrayerComment: (id: string) => Promise<boolean>;
 
   createAnnouncement: (title: string, body: string, sentBy?: string) => Promise<boolean>;
+  deleteAnnouncement: (id: string) => Promise<boolean>;
 
   createAdvertisement: (title: string, description: string, imageUrl?: string, link?: string) => Promise<boolean>;
   deleteAdvertisement: (id: string) => Promise<boolean>;
@@ -283,9 +289,7 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
 
       return {
         success: true,
-        message: profile?.approved
-          ? 'Account created and activated.'
-          : 'Account created! An admin will approve your membership shortly.'
+        message: 'Account created and activated. Welcome to SEPAC!'
       };
     } catch (err) {
       return { success: false, error: 'Registration failed due to networking issues' };
@@ -316,6 +320,11 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
     return !error;
   };
 
+  const deleteMember = async (id: string): Promise<boolean> => {
+    const { error } = await supabase.from('profiles').delete().eq('id', id);
+    return !error;
+  };
+
   // ---------- posts ----------
   const createPost = async (title: string, content: string, category: Post['category'], imageUrl?: string): Promise<boolean> => {
     if (!user) return false;
@@ -328,6 +337,11 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
 
   const updatePostStatus = async (id: string, status: Post['status']): Promise<boolean> => {
     const { error } = await supabase.from('posts').update({ status }).eq('id', id);
+    return !error;
+  };
+
+  const deletePost = async (id: string): Promise<boolean> => {
+    const { error } = await supabase.from('posts').delete().eq('id', id);
     return !error;
   };
 
@@ -353,6 +367,11 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
   const getCommentsForPost = async (postId: string): Promise<Comment[]> => {
     const { data } = await supabase.from('comments').select('*').eq('post_id', postId).order('created_at', { ascending: true });
     return (data || []) as Comment[];
+  };
+
+  const deleteComment = async (id: string): Promise<boolean> => {
+    const { error } = await supabase.from('comments').delete().eq('id', id);
+    return !error;
   };
 
   // ---------- events ----------
@@ -427,9 +446,24 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
     return !error;
   };
 
+  const deletePrayerRequest = async (id: string): Promise<boolean> => {
+    const { error } = await supabase.from('prayer_requests').delete().eq('id', id);
+    return !error;
+  };
+
+  const deletePrayerComment = async (id: string): Promise<boolean> => {
+    const { error } = await supabase.from('prayer_comments').delete().eq('id', id);
+    return !error;
+  };
+
   // ---------- announcements ----------
   const createAnnouncement = async (title: string, body: string, sentBy?: string): Promise<boolean> => {
     const { error } = await supabase.from('announcements').insert({ title, body, sent_by: sentBy });
+    return !error;
+  };
+
+  const deleteAnnouncement = async (id: string): Promise<boolean> => {
+    const { error } = await supabase.from('announcements').delete().eq('id', id);
     return !error;
   };
 
@@ -478,13 +512,13 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
       members, posts, events, gallery, prayerRequests, announcements, advertisements,
       analytics, likes, siteSettings,
       login, register, logout, updateProfile,
-      approveMember, updateMemberRole,
-      createPost, updatePostStatus, likePost, addComment, getCommentsForPost,
+      approveMember, updateMemberRole, deleteMember,
+      createPost, updatePostStatus, deletePost, likePost, addComment, getCommentsForPost, deleteComment,
       createEvent, rsvpEvent, deleteEvent, updateEvent,
       uploadPhoto, approvePhoto, deleteGalleryItem,
       updateSiteSettings,
-      submitPrayer, prayForRequest, addPrayerComment,
-      createAnnouncement,
+      submitPrayer, prayForRequest, addPrayerComment, deletePrayerRequest, deletePrayerComment,
+      createAnnouncement, deleteAnnouncement,
       createAdvertisement, deleteAdvertisement,
       uploadImageBase64, refreshAnalytics
     }}>

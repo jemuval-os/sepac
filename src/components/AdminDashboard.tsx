@@ -29,16 +29,20 @@ export default function AdminDashboard() {
     posts, 
     events, 
     gallery, 
+    prayerRequests,
     announcements, 
     advertisements,
     analytics,
     siteSettings,
     approveMember, 
     updateMemberRole,
+    deleteMember,
     updatePostStatus, 
+    deletePost,
     createEvent, 
     approvePhoto, 
     createAnnouncement,
+    deleteAnnouncement,
     createAdvertisement,
     deleteAdvertisement,
     uploadPhoto,
@@ -46,10 +50,12 @@ export default function AdminDashboard() {
     deleteEvent,
     updateEvent,
     deleteGalleryItem,
+    deletePrayerRequest,
+    deletePrayerComment,
     updateSiteSettings
   } = useSEPAC();
 
-  const [activeSection, setActiveSection] = useState<'analytics' | 'members' | 'posts' | 'events' | 'gallery' | 'announcements' | 'advertisements' | 'site_settings'>('analytics');
+  const [activeSection, setActiveSection] = useState<'analytics' | 'members' | 'posts' | 'events' | 'gallery' | 'prayers' | 'announcements' | 'advertisements' | 'site_settings'>('analytics');
 
   
   // Event Form State
@@ -595,6 +601,16 @@ export default function AdminDashboard() {
             Manage Events
           </button>
           <button
+            onClick={() => setActiveSection('prayers')}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+              activeSection === 'prayers'
+                ? 'bg-brand-navy text-brand-gold'
+                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+            }`}
+          >
+            Prayer Requests
+          </button>
+          <button
             onClick={() => setActiveSection('announcements')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeSection === 'announcements'
@@ -846,15 +862,24 @@ export default function AdminDashboard() {
                             </button>
                           )}
                           {isSuperAdmin && m.email !== 'jemuvalos@gmail.com' && (
-                            <select
-                              value={m.role}
-                              onChange={(e) => updateMemberRole(m.id, e.target.value as UserRole)}
-                              className="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-brand-gold"
-                            >
-                              <option value="member">Member</option>
-                              <option value="moderator">Moderator</option>
-                              <option value="admin">Admin</option>
-                            </select>
+                            <>
+                              <select
+                                value={m.role}
+                                onChange={(e) => updateMemberRole(m.id, e.target.value as UserRole)}
+                                className="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-brand-gold"
+                              >
+                                <option value="member">Member</option>
+                                <option value="moderator">Moderator</option>
+                                <option value="admin">Admin</option>
+                              </select>
+                              <button
+                                onClick={() => { if (confirm(`Remove ${m.name} from SEPAC? This cannot be undone.`)) deleteMember(m.id); }}
+                                className="px-2 py-1 bg-red-600 text-white rounded text-[10px] font-bold hover:bg-red-700 transition-colors flex items-center gap-1"
+                              >
+                                <Trash2 size={10} />
+                                <span>Remove</span>
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>
@@ -906,6 +931,13 @@ export default function AdminDashboard() {
                         <X size={12} />
                         <span>Reject</span>
                       </button>
+                      <button
+                        onClick={() => { if (confirm('Permanently delete this post?')) deletePost(post.id); }}
+                        className="px-2.5 py-1.5 bg-gray-700 text-white rounded-lg text-xs font-bold hover:bg-gray-800 flex items-center space-x-1"
+                      >
+                        <Trash2 size={12} />
+                        <span>Delete</span>
+                      </button>
                     </div>
                   </div>
                   
@@ -925,10 +957,34 @@ export default function AdminDashboard() {
               ))}
             </div>
           )}
+
+          {/* Live (already approved) posts — admin can remove any of these too */}
+          <div className="pt-4">
+            <h3 className="font-serif-display text-base font-bold text-brand-navy mb-3">Live Posts</h3>
+            {posts.filter(p => p.status === 'approved').length === 0 ? (
+              <p className="text-xs text-gray-400 italic">No live posts yet.</p>
+            ) : (
+              <div className="space-y-2">
+                {posts.filter(p => p.status === 'approved').map((post) => (
+                  <div key={post.id} className="flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200">
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-gray-800 truncate">{post.title}</p>
+                      <p className="text-[10px] text-gray-400">by {post.author_name}</p>
+                    </div>
+                    <button
+                      onClick={() => { if (confirm('Permanently delete this post?')) deletePost(post.id); }}
+                      className="ml-3 shrink-0 px-2.5 py-1.5 bg-red-600 text-white rounded-lg text-[10px] font-bold hover:bg-red-700 flex items-center space-x-1"
+                    >
+                      <Trash2 size={10} />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
-
-      {/* 4. GALLERY PHOTOS MODERATION */}
       {activeSection === 'gallery' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
@@ -1063,7 +1119,7 @@ export default function AdminDashboard() {
                         <p className="font-bold truncate">{photo.event_tag}</p>
                         <button
                           type="button"
-                          onClick={() => approvePhoto(photo.id, false)}
+                          onClick={() => { if (confirm('Permanently delete this photo?')) deleteGalleryItem(photo.id); }}
                           className="self-end px-2 py-0.5 bg-red-600 hover:bg-red-700 text-white rounded font-bold transition-all cursor-pointer"
                         >
                           Delete
@@ -1341,6 +1397,64 @@ export default function AdminDashboard() {
         </div>
       )}
 
+      {/* PRAYER REQUESTS MODERATION */}
+      {activeSection === 'prayers' && (
+        <div className="space-y-4">
+          <h2 className="font-serif-display text-lg font-bold text-brand-navy mb-4">
+            Prayer Requests ({prayerRequests.length})
+          </h2>
+
+          {prayerRequests.length === 0 ? (
+            <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+              <p className="text-sm font-semibold text-gray-700">No prayer requests yet.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {prayerRequests.map((pr) => (
+                <div key={pr.id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <img src={pr.author_avatar} className="w-6 h-6 rounded-full object-cover border" />
+                      <span className="font-bold text-gray-800">{pr.author_name}</span>
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase ${
+                        pr.visibility === 'public' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                      }`}>
+                        {pr.visibility}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => { if (confirm('Delete this prayer request and its comments?')) deletePrayerRequest(pr.id); }}
+                      className="px-2 py-1 bg-red-600 text-white rounded text-[10px] font-bold hover:bg-red-700 flex items-center gap-1"
+                    >
+                      <Trash2 size={10} />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">{pr.content}</p>
+                  <p className="text-[10px] text-gray-400">{pr.praying_users.length} praying &middot; {new Date(pr.created_at).toLocaleDateString()}</p>
+
+                  {pr.comments && pr.comments.length > 0 && (
+                    <div className="pt-2 mt-2 border-t border-gray-100 space-y-1.5">
+                      {pr.comments.map((c) => (
+                        <div key={c.id} className="flex items-center justify-between bg-gray-50 rounded px-2 py-1">
+                          <span className="text-[11px] text-gray-600"><span className="font-bold">{c.author_name}:</span> {c.content}</span>
+                          <button
+                            onClick={() => { if (confirm('Delete this comment?')) deletePrayerComment(c.id); }}
+                            className="ml-2 shrink-0 text-red-500 hover:text-red-700"
+                          >
+                            <Trash2 size={10} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* 6. BROADCAST ANNOUNCEMENTS */}
       {activeSection === 'announcements' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -1420,9 +1534,18 @@ export default function AdminDashboard() {
                     </span>
                   </div>
                   <p className="text-gray-600 leading-relaxed">{ann.body}</p>
-                  <p className="text-[10px] font-bold text-brand-gold-dark uppercase tracking-wider">
-                    Sign-off: {ann.sent_by}
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[10px] font-bold text-brand-gold-dark uppercase tracking-wider">
+                      Sign-off: {ann.sent_by}
+                    </p>
+                    <button
+                      onClick={() => { if (confirm('Delete this announcement?')) deleteAnnouncement(ann.id); }}
+                      className="px-2 py-1 bg-red-600 text-white rounded text-[10px] font-bold hover:bg-red-700 flex items-center gap-1"
+                    >
+                      <Trash2 size={10} />
+                      <span>Delete</span>
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
