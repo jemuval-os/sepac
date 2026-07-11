@@ -8,7 +8,7 @@ export default function Footer({ setActiveTab }: { setActiveTab: (tab: string) =
 
   const email = siteSettings?.contacts?.email || 'sepacnyanza@gmail.com';
   const phones = siteSettings?.contacts?.phones || ['+250 796 409 467', '+250 786 047 305', '+250 796 379 882'];
-  const address = siteSettings ? (lang === 'rw' ? siteSettings.contacts.address_rw : siteSettings.contacts.address_en) : 'ES Saint Esprit, Nyanza, Rwanda';
+  const address = (lang === 'rw' ? siteSettings?.contacts?.address_rw : siteSettings?.contacts?.address_en) || 'ES Saint Esprit, Nyanza, Rwanda';
 
   return (
     <footer className="bg-brand-navy-dark text-white border-t-2 border-brand-gold/50 font-sans">

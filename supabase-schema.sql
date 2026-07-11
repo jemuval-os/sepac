@@ -178,7 +178,29 @@ create table if not exists public.site_settings (
   updated_at timestamptz not null default now(),
   constraint single_row check (id = 1)
 );
-insert into public.site_settings (id, data) values (1, '{}'::jsonb) on conflict (id) do nothing;
+insert into public.site_settings (id, data) values (1, '{
+  "historyTitle_en": "Our History",
+  "historyTitle_rw": "Amateka Yacu",
+  "historyText1_en": "SEPAC was founded to unite alumni of ES Saint Esprit around faith, fellowship, and service.",
+  "historyText1_rw": "SEPAC yashinzwe kugira ngo ihuze abanyeshuri ba ES Saint Esprit mu kwizera, ubumwe n''\''umurimo.",
+  "historyText2_en": "",
+  "historyText2_rw": "",
+  "missionTitle_en": "Our Mission",
+  "missionTitle_rw": "Intego Yacu",
+  "missionText_en": "To strengthen the bond between alumni through unity, faith, fellowship, and service.",
+  "missionText_rw": "Gushimangira umubano hagati y''\''abanyeshuri binyuze mu bumwe, kwizera, ubumwe n''\''umurimo.",
+  "visionTitle_en": "Our Vision",
+  "visionTitle_rw": "Icyerekezo Cyacu",
+  "visionText_en": "A thriving, connected community rooted in Christian values.",
+  "visionText_rw": "Umuryango unyuranye kandi uhuriweho, ushingiye ku mahame ya gikristo.",
+  "leadershipTeam": [],
+  "contacts": {
+    "email": "sepacnyanza@gmail.com",
+    "phones": ["+250 796 409 467", "+250 786 047 305", "+250 796 379 882"],
+    "address_en": "ES Saint Esprit, Nyanza, Rwanda",
+    "address_rw": "ES Saint Esprit, Nyanza, u Rwanda"
+  }
+}'::jsonb) on conflict (id) do nothing;
 
 -- ============================================================
 -- ROW LEVEL SECURITY

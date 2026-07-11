@@ -1602,7 +1602,7 @@ function ContactSection() {
 
   const email = siteSettings?.contacts?.email || 'sepacnyanza@gmail.com';
   const phones = siteSettings?.contacts?.phones || ['+250 796 409 467', '+250 786 047 305', '+250 796 379 882'];
-  const address = siteSettings ? (lang === 'rw' ? siteSettings.contacts.address_rw : siteSettings.contacts.address_en) : 'ES Saint Esprit, Nyanza, Rwanda';
+  const address = (lang === 'rw' ? siteSettings?.contacts?.address_rw : siteSettings?.contacts?.address_en) || 'ES Saint Esprit, Nyanza, Rwanda';
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 font-sans">
