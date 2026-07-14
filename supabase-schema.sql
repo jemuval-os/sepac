@@ -252,7 +252,7 @@ create policy "events_delete_admin" on public.events for delete using (public.is
 create policy "gallery_select" on public.gallery_items for select using (
   approved = true or uploader_id = auth.uid() or public.is_admin()
 );
-create policy "gallery_insert_own" on public.gallery_items for insert with check (auth.uid() = uploader_id);
+create policy "gallery_insert_admin" on public.gallery_items for insert with check (public.is_admin());
 create policy "gallery_update_admin" on public.gallery_items for update using (public.is_admin());
 create policy "gallery_delete_admin" on public.gallery_items for delete using (public.is_admin() or uploader_id = auth.uid());
 

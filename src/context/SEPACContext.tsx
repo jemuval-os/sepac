@@ -403,8 +403,9 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
   // ---------- gallery ----------
   const uploadPhoto = async (imageUrl: string, eventTag: string): Promise<boolean> => {
     if (!user) return false;
+    const isAdmin = user.role === 'admin' || user.role === 'super_admin' || user.role === 'moderator';
     const { error } = await supabase.from('gallery_items').insert({
-      image_url: imageUrl, event_tag: eventTag, uploader_id: user.id, uploader_name: user.name
+      image_url: imageUrl, event_tag: eventTag, uploader_id: user.id, uploader_name: user.name, approved: isAdmin
     });
     return !error;
   };

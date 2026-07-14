@@ -1120,9 +1120,11 @@ export default function AdminDashboard() {
                         <button
                           type="button"
                           onClick={() => { if (confirm('Permanently delete this photo?')) deleteGalleryItem(photo.id); }}
-                          className="self-end px-2 py-0.5 bg-red-600 hover:bg-red-700 text-white rounded font-bold transition-all cursor-pointer"
+                          title="Delete photo"
+                          aria-label="Delete photo"
+                          className="self-end p-1.5 bg-red-600 hover:bg-red-700 text-white rounded-full transition-all cursor-pointer"
                         >
-                          Delete
+                          <Trash2 size={13} />
                         </button>
                       </div>
                     </div>

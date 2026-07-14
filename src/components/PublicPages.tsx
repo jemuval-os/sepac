@@ -1173,9 +1173,11 @@ function GallerySection() {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState('');
+  const [lightboxPhoto, setLightboxPhoto] = useState<{ url: string; tag: string } | null>(null);
 
   const photoFileRef = useRef<HTMLInputElement>(null);
 
+  const isAdmin = user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'moderator';
   const approvedPhotos = gallery.filter(g => g.approved);
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1238,7 +1240,7 @@ function GallerySection() {
           <p className="text-xs text-gray-500 mt-1">Cherish the beautiful memories of our assemblies and activities.</p>
         </div>
 
-        {user && (
+        {isAdmin && (
           <button
             onClick={() => {
               setShowUpload(!showUpload);
@@ -1322,7 +1324,11 @@ function GallerySection() {
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {approvedPhotos.map((photo) => (
-            <div key={photo.id} className="bg-white rounded-xl overflow-hidden border border-brand-navy/15 shadow-sm group hover:shadow-md transition-shadow">
+            <div
+              key={photo.id}
+              onClick={() => setLightboxPhoto({ url: photo.image_url, tag: photo.event_tag })}
+              className="bg-white rounded-xl overflow-hidden border border-brand-navy/15 shadow-sm group hover:shadow-md transition-shadow cursor-pointer"
+            >
               <div className="aspect-[4/3] overflow-hidden bg-gray-100">
                 <img
                   src={photo.image_url}
@@ -1336,6 +1342,30 @@ function GallerySection() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Lightbox: click any photo to view it enlarged */}
+      {lightboxPhoto && (
+        <div
+          onClick={() => setLightboxPhoto(null)}
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
+        >
+          <button
+            onClick={() => setLightboxPhoto(null)}
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors"
+            aria-label="Close"
+          >
+            <X size={22} />
+          </button>
+          <div className="max-w-5xl max-h-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={lightboxPhoto.url}
+              alt={lightboxPhoto.tag}
+              className="max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl"
+            />
+            <p className="text-white/80 text-xs font-bold mt-3 uppercase tracking-wider">{lightboxPhoto.tag}</p>
+          </div>
         </div>
       )}
 
