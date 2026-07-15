@@ -4,15 +4,11 @@ import { useSEPAC } from '../context/SEPACContext';
 
 export default function WelcomeSplash() {
   const { t } = useSEPAC();
-  const [visible, setVisible] = useState(false);
+  // Read sessionStorage synchronously during state init (not in a useEffect)
+  // so the correct value is used on the very first render — this is what
+  // prevents the main site from flashing behind the splash for a frame.
+  const [visible, setVisible] = useState(() => !sessionStorage.getItem('sepac_welcomed'));
   const [closing, setClosing] = useState(false);
-
-  useEffect(() => {
-    const alreadyWelcomed = sessionStorage.getItem('sepac_welcomed');
-    if (!alreadyWelcomed) {
-      setVisible(true);
-    }
-  }, []);
 
   const dismiss = () => {
     setClosing(true);
@@ -22,7 +18,7 @@ export default function WelcomeSplash() {
 
   useEffect(() => {
     if (!visible) return;
-    const timer = setTimeout(dismiss, 3200);
+    const timer = setTimeout(dismiss, 5000);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
@@ -37,20 +33,20 @@ export default function WelcomeSplash() {
       <div className="sepac-wallpaper" />
       <div className="relative flex flex-col items-center px-6 text-center">
         <div className="splash-logo-in">
-          <SEPACSeal size={168} className="drop-shadow-[0_8px_40px_rgba(0,0,0,0.35)]" />
+          <SEPACSeal size={260} className="drop-shadow-[0_10px_50px_rgba(0,0,0,0.4)]" />
         </div>
-        <div className="splash-text-in mt-6 glass-panel px-8 py-5 max-w-sm">
-          <p className="font-serif-display text-xl font-bold text-brand-navy">
+        <div className="splash-text-in mt-8 glass-panel px-12 py-8 max-w-md">
+          <p className="font-serif-display text-3xl font-bold text-brand-navy">
             Welcome to SEPAC
           </p>
-          <p className="text-xs text-brand-navy/70 mt-1 tracking-wide">
+          <p className="text-sm text-brand-navy/70 mt-2 tracking-wide">
             Saint Esprit Protestant Alumni Community
           </p>
-          <p className="text-[11px] text-brand-gold-dark font-bold uppercase tracking-[0.2em] mt-3">
+          <p className="text-xs text-brand-gold-dark font-bold uppercase tracking-[0.2em] mt-4">
             Unity &middot; Faith &middot; Fellowship &middot; Service
           </p>
         </div>
-        <p className="splash-text-in text-white/60 text-[11px] mt-8 uppercase tracking-widest">
+        <p className="splash-text-in text-white/60 text-xs mt-10 uppercase tracking-widest">
           Tap anywhere to enter
         </p>
       </div>

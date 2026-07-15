@@ -59,27 +59,59 @@ body {
               linear-gradient(180deg, rgba(16,27,77,0.35) 0%, rgba(16,27,77,0.65) 100%);
 }
 
-/* Core glass panel — used for every card, nav bar, modal, footer. */
+/* Core glass panel — used for every card, nav bar, modal, footer.
+   Tuned for a true "liquid glass" look: highly transparent, strong
+   blur/saturation so color from the wallpaper bleeds through, a thin
+   bright rim-light border, and a soft inner sheen at the top edge. */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  position: relative;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px) saturate(220%) brightness(1.08);
+  -webkit-backdrop-filter: blur(14px) saturate(220%) brightness(1.08);
   border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(16, 27, 77, 0.16), inset 0 1px 0 rgba(255,255,255,0.4);
+  box-shadow: 0 8px 32px rgba(16, 27, 77, 0.22), inset 0 1px 0 rgba(255,255,255,0.65), inset 0 0 50px rgba(255,255,255,0.08);
 }
 
 /* A darker glass variant for elements meant to sit directly over
    the navy wallpaper without a card underneath (e.g. the navbar). */
 .glass-panel-dark {
-  background: rgba(16, 27, 77, 0.45);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  position: relative;
+  background: rgba(16, 27, 77, 0.16);
+  backdrop-filter: blur(16px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(200%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.14);
   color: #FAF9F6;
 }
+
+/* Default, more rounded "iPhone-style" corner radius for glass panels
+   that don't already specify their own rounded-* utility class. */
+.glass-panel:not([class*="rounded-"]),
+.glass-panel-dark:not([class*="rounded-"]) {
+  border-radius: 26px;
+}
+
+/* Floating pill badge — used for section labels and small tags that
+   sit directly on the wallpaper, so they stay readable and match the
+   rounded, iPhone-style capsule edges used across iOS. */
+.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(16, 27, 77, 0.22);
+  backdrop-filter: blur(12px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter: blur(12px) saturate(200%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.16);
+  color: #FAF9F6;
+}
+
+/* Bright, glowing icons — used on pillar cards and feature icons so
+   they pop against the transparent mirror-glass instead of looking dull. */
+.icon-bright {
+  filter: drop-shadow(0 0 6px rgba(201,168,76,0.55)) brightness(1.15) saturate(1.3);
+}
+
 
 /* Welcome / splash screen */
 .splash-fade-out {

@@ -523,12 +523,12 @@ export default function AdminDashboard() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans">
       
       {/* Upper Title block */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-brand-gold/30 pb-6 mb-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between glass-pill px-6 py-4 mb-8">
         <div>
-          <h1 className="font-serif-display text-3xl font-bold text-brand-navy">
+          <h1 className="font-serif-display text-3xl font-bold">
             SEPAC Executive Control Panel
           </h1>
-          <p className="text-xs text-brand-gold-dark font-bold uppercase tracking-widest mt-1">
+          <p className="text-xs text-brand-gold font-bold uppercase tracking-widest mt-1">
             Logged in as: {user?.name} ({user?.role.replace('_', ' ')})
           </p>
         </div>
@@ -651,7 +651,7 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             
             {/* Approved members count */}
-            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-[1.75rem] border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-blue-50 text-brand-navy">
                 <Users size={20} />
               </div>
@@ -663,7 +663,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Approved posts count */}
-            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-[1.75rem] border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-amber-50 text-brand-gold">
                 <FileText size={20} />
               </div>
@@ -675,7 +675,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Event Assemblies */}
-            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-[1.75rem] border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-emerald-50 text-emerald-700">
                 <Calendar size={20} />
               </div>
@@ -687,7 +687,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Gallery images */}
-            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-[1.75rem] border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-purple-50 text-purple-700">
                 <ImageIcon size={20} />
               </div>
@@ -703,7 +703,7 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             {/* Quick action items summary */}
-            <div className="glass-panel rounded-xl border border-brand-navy/15 shadow-sm p-5 lg:col-span-2 space-y-4">
+            <div className="glass-panel rounded-[1.75rem] border border-brand-navy/15 shadow-sm p-5 lg:col-span-2 space-y-4">
               <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2">
                 Pending Actions Summary
               </h3>
@@ -739,7 +739,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Quick tips */}
-            <div className="bg-brand-navy text-white rounded-xl p-5 border border-brand-gold/30 flex flex-col justify-between">
+            <div className="bg-brand-navy text-white rounded-[1.75rem] p-5 border border-brand-gold/30 flex flex-col justify-between">
               <div>
                 <h4 className="font-serif-display text-sm font-bold text-brand-gold mb-2">Administrative Guidelines</h4>
                 <p className="text-xs text-gray-300 leading-relaxed mb-4">
@@ -773,7 +773,7 @@ export default function AdminDashboard() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {pendingMembers.map((member) => (
-                  <div key={member.id} className="bg-amber-50/50 p-4 rounded-xl border border-amber-200 flex items-start justify-between">
+                  <div key={member.id} className="bg-amber-50/50 p-4 rounded-[1.75rem] border border-amber-200 flex items-start justify-between">
                     <div className="flex items-center space-x-3">
                       <img
                         src={member.avatar_url}
@@ -809,7 +809,7 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          <div className="glass-panel rounded-xl border border-gray-200 overflow-hidden">
+          <div className="glass-panel rounded-[1.75rem] border border-gray-200 overflow-hidden">
             <div className="px-4 py-3 bg-brand-cream border-b border-gray-200">
               <h3 className="text-xs font-bold uppercase text-brand-navy tracking-wider">All Members & Roles</h3>
             </div>
@@ -901,7 +901,7 @@ export default function AdminDashboard() {
           </h2>
 
           {pendingPosts.length === 0 ? (
-            <div className="text-center py-12 glass-panel rounded-xl border border-gray-200">
+            <div className="text-center py-12 glass-panel rounded-[1.75rem] border border-gray-200">
               <CheckCircle size={36} className="mx-auto text-emerald-500 mb-2" />
               <p className="text-sm font-semibold text-gray-700">No pending news posts for review.</p>
               <p className="text-xs text-gray-400">Approved posts will show directly on the feed tab.</p>
@@ -909,7 +909,7 @@ export default function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {pendingPosts.map((post) => (
-                <div key={post.id} className="glass-panel p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
+                <div key={post.id} className="glass-panel p-5 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="px-2 py-0.5 bg-brand-gold-light text-brand-navy-dark rounded text-[10px] font-bold uppercase tracking-wider">
@@ -990,7 +990,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Direct Photo Uploader */}
-          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+          <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-4">
             <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2">
               Add Photo Directly
             </h3>
@@ -1058,7 +1058,7 @@ export default function AdminDashboard() {
               </h3>
 
               {pendingPhotos.length === 0 ? (
-                <div className="text-center py-8 glass-panel rounded-xl border border-gray-200">
+                <div className="text-center py-8 glass-panel rounded-[1.75rem] border border-gray-200">
                   <CheckCircle size={36} className="mx-auto text-emerald-500 mb-2" />
                   <p className="text-sm font-semibold text-gray-700">No pending photo uploads for review.</p>
                   <p className="text-xs text-gray-400">All photos have been moderated.</p>
@@ -1066,7 +1066,7 @@ export default function AdminDashboard() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {pendingPhotos.map((photo) => (
-                    <div key={photo.id} className="glass-panel rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
+                    <div key={photo.id} className="glass-panel rounded-[1.75rem] overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
                       <div>
                         <img
                           src={photo.image_url}
@@ -1143,7 +1143,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Create Event Form */}
-          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm">
             {editingEventId ? (
               <>
                 <div className="flex justify-between items-center border-b border-brand-gold/20 pb-2 mb-4">
@@ -1357,7 +1357,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 italic">No published events found.</p>
               ) : (
                 events.map((ev) => (
-                  <div key={ev.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm flex space-x-3 text-xs">
+                  <div key={ev.id} className="glass-panel p-4 rounded-[1.75rem] border border-gray-200 shadow-sm flex space-x-3 text-xs">
                     {ev.image_url && (
                       <img src={ev.image_url} alt={ev.title} className="w-16 h-16 rounded object-cover border flex-shrink-0" />
                     )}
@@ -1408,13 +1408,13 @@ export default function AdminDashboard() {
           </h2>
 
           {prayerRequests.length === 0 ? (
-            <div className="text-center py-12 glass-panel rounded-xl border border-gray-200">
+            <div className="text-center py-12 glass-panel rounded-[1.75rem] border border-gray-200">
               <p className="text-sm font-semibold text-gray-700">No prayer requests yet.</p>
             </div>
           ) : (
             <div className="space-y-4">
               {prayerRequests.map((pr) => (
-                <div key={pr.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
+                <div key={pr.id} className="glass-panel p-4 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <img src={pr.author_avatar} className="w-6 h-6 rounded-full object-cover border" />
@@ -1463,7 +1463,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Create Announcement */}
-          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm">
             <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2 mb-4">
               Broadcast Official Announcement
             </h3>
@@ -1526,7 +1526,7 @@ export default function AdminDashboard() {
 
             <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
               {announcements.map((ann) => (
-                <div key={ann.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
+                <div key={ann.id} className="glass-panel p-4 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <h4 className="font-bold text-brand-navy flex items-center space-x-1.5">
                       <Megaphone size={14} className="text-brand-gold" />
@@ -1562,7 +1562,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Create Advertisement Form */}
-          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm">
             <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2 mb-4">
               Publish New Advertisement
             </h3>
@@ -1654,12 +1654,12 @@ export default function AdminDashboard() {
 
             <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
               {advertisements.length === 0 ? (
-                <div className="p-6 text-center bg-gray-50 border rounded-xl text-gray-400 text-xs">
+                <div className="p-6 text-center bg-gray-50 border rounded-[1.75rem] text-gray-400 text-xs">
                   No active ad campaigns yet.
                 </div>
               ) : (
                 advertisements.map((ad) => (
-                  <div key={ad.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm flex gap-4 text-xs">
+                  <div key={ad.id} className="glass-panel p-4 rounded-[1.75rem] border border-gray-200 shadow-sm flex gap-4 text-xs">
                     {ad.image_url && (
                       <img
                         src={ad.image_url}
@@ -1698,7 +1698,7 @@ export default function AdminDashboard() {
       {activeSection === 'site_settings' && isSuperAdmin && (
         <div className="space-y-8 animate-fade-in">
           
-          <div className="bg-amber-50 border border-brand-gold/30 p-4 rounded-xl text-xs text-brand-navy flex items-start space-x-3">
+          <div className="bg-amber-50 border border-brand-gold/30 p-4 rounded-[1.75rem] text-xs text-brand-navy flex items-start space-x-3">
             <Settings className="text-brand-gold mt-0.5 shrink-0" size={16} />
             <div>
               <p className="font-bold">Super Admin Content Portal</p>
@@ -1715,7 +1715,7 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
               {/* History Card */}
-              <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                   <BookOpen size={16} className="text-brand-gold" />
                   <h3 className="font-serif-display text-sm font-bold text-brand-navy">History Section</h3>
@@ -1780,7 +1780,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Mission Card */}
-              <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                   <Sparkles size={16} className="text-brand-gold" />
                   <h3 className="font-serif-display text-sm font-bold text-brand-navy">Mission Section</h3>
@@ -1827,7 +1827,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Vision Card */}
-              <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                   <ShieldCheck size={16} className="text-brand-gold" />
                   <h3 className="font-serif-display text-sm font-bold text-brand-navy">Vision Section</h3>
@@ -1876,7 +1876,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Contacts & Support Details */}
-            <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+            <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-4">
               <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                 <Users size={16} className="text-brand-gold" />
                 <h3 className="font-serif-display text-sm font-bold text-brand-navy">Contact & Location Details</h3>
@@ -1958,7 +1958,7 @@ export default function AdminDashboard() {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center space-x-2 cursor-pointer"
+                className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider rounded-[1.75rem] shadow-lg transition-all flex items-center space-x-2 cursor-pointer"
               >
                 <Save size={16} />
                 <span>Save Section & Contact Settings</span>
@@ -1967,7 +1967,7 @@ export default function AdminDashboard() {
           </form>
 
           {/* Leadership Team management section */}
-          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+          <div className="glass-panel p-6 rounded-[1.75rem] border border-gray-200 shadow-sm space-y-6">
             <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
               <Users size={18} className="text-brand-gold" />
               <h3 className="font-serif-display text-base font-bold text-brand-navy">Leadership Team Members</h3>
@@ -1976,7 +1976,7 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
               {/* Form to Add Team Member */}
-              <div className="bg-gray-50 p-5 rounded-xl border border-gray-100 space-y-4">
+              <div className="bg-gray-50 p-5 rounded-[1.75rem] border border-gray-100 space-y-4">
                 <h4 className="font-bold text-xs text-brand-navy border-b pb-1">Add New Team Member</h4>
                 
                 <div className="space-y-3 text-xs">
@@ -2067,7 +2067,7 @@ export default function AdminDashboard() {
                     <p className="text-xs text-gray-400 italic">No team members added yet.</p>
                   ) : (
                     siteSettings?.leadershipTeam.map((member) => (
-                      <div key={member.id} className="glass-panel p-4 rounded-xl border border-gray-100 shadow-sm flex items-start space-x-3 text-xs justify-between">
+                      <div key={member.id} className="glass-panel p-4 rounded-[1.75rem] border border-gray-100 shadow-sm flex items-start space-x-3 text-xs justify-between">
                         <div className="flex items-center space-x-3 min-w-0">
                           <img
                             src={member.avatar}
