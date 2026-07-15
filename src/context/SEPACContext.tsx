@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import {
   Profile,
   Post,
@@ -86,6 +86,9 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
   });
 
   const [user, setUserState] = useState<Profile | null>(null);
+  const userRef = useRef<Profile | null>(null);
+  useEffect(() => { userRef.current = user; }, [user]);
+
   const [members, setMembers] = useState<Profile[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [likes, setLikes] = useState<Like[]>([]);
@@ -226,7 +229,20 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
 
     const channel = supabase
       .channel('sepac-realtime')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, fetchMembers)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, (payload: any) => {
+        fetchMembers();
+        // If the change is to the currently logged-in user's own profile
+        // (e.g. a super admin switches their own role to admin/moderator),
+        // apply it to this session immediately — no re-login required.
+        const changedId = payload?.new?.id || payload?.old?.id;
+        if (changedId && userRef.current && changedId === userRef.current.id) {
+          if (payload.eventType === 'DELETE') {
+            setUserState(null);
+          } else {
+            setUserState(payload.new as Profile);
+          }
+        }
+      })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, fetchPosts)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'likes' }, fetchLikes)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, () => {})
@@ -317,6 +333,9 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
 
   const updateMemberRole = async (id: string, role: UserRole): Promise<boolean> => {
     const { error } = await supabase.from('profiles').update({ role }).eq('id', id);
+    if (!error && user && id === user.id) {
+      setUserState({ ...user, role });
+    }
     return !error;
   };
 

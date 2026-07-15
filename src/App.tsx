@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
 import PublicPages from './components/PublicPages';
 import AdminDashboard from './components/AdminDashboard';
+import WelcomeSplash from './components/WelcomeSplash';
 import { Megaphone, X, Bell } from 'lucide-react';
 
 function SEPACAppContent() {
@@ -45,8 +46,10 @@ function SEPACAppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-brand-cream text-gray-800 antialiased selection:bg-brand-gold/30">
-      
+    <div className="min-h-screen flex flex-col text-gray-800 antialiased selection:bg-brand-gold/30">
+
+      <div className="sepac-wallpaper" />
+      <WelcomeSplash />
       {/* Floating Real-time Announcement Toast */}
       {latestAnnouncement && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[80] w-full max-w-xl px-4 animate-[bounce_1s_ease_1]">

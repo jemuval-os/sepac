@@ -540,7 +540,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeSection === 'analytics'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Analytics
@@ -550,7 +550,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all relative ${
               activeSection === 'members'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Members
@@ -565,7 +565,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all relative ${
               activeSection === 'posts'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             News Review
@@ -580,7 +580,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all relative ${
               activeSection === 'gallery'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Photos Review
@@ -595,7 +595,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeSection === 'events'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Manage Events
@@ -605,7 +605,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeSection === 'prayers'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Prayer Requests
@@ -615,7 +615,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeSection === 'announcements'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Broadcaster
@@ -625,7 +625,7 @@ export default function AdminDashboard() {
             className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               activeSection === 'advertisements'
                 ? 'bg-brand-navy text-brand-gold'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                : 'glass-panel text-gray-700 hover:bg-gray-100 border border-gray-200'
             }`}
           >
             Advertisements
@@ -651,7 +651,7 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             
             {/* Approved members count */}
-            <div className="bg-white p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-blue-50 text-brand-navy">
                 <Users size={20} />
               </div>
@@ -663,7 +663,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Approved posts count */}
-            <div className="bg-white p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-amber-50 text-brand-gold">
                 <FileText size={20} />
               </div>
@@ -675,7 +675,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Event Assemblies */}
-            <div className="bg-white p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-emerald-50 text-emerald-700">
                 <Calendar size={20} />
               </div>
@@ -687,7 +687,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Gallery images */}
-            <div className="bg-white p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
+            <div className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm flex items-center space-x-4">
               <div className="p-3 rounded-lg bg-purple-50 text-purple-700">
                 <ImageIcon size={20} />
               </div>
@@ -703,7 +703,7 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             {/* Quick action items summary */}
-            <div className="bg-white rounded-xl border border-brand-navy/15 shadow-sm p-5 lg:col-span-2 space-y-4">
+            <div className="glass-panel rounded-xl border border-brand-navy/15 shadow-sm p-5 lg:col-span-2 space-y-4">
               <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2">
                 Pending Actions Summary
               </h3>
@@ -809,7 +809,7 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <div className="glass-panel rounded-xl border border-gray-200 overflow-hidden">
             <div className="px-4 py-3 bg-brand-cream border-b border-gray-200">
               <h3 className="text-xs font-bold uppercase text-brand-navy tracking-wider">All Members & Roles</h3>
             </div>
@@ -825,7 +825,7 @@ export default function AdminDashboard() {
                     <th className="px-6 py-3 text-right font-bold text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
+                <tbody className="divide-y divide-gray-200 glass-panel">
                   {members.map((m) => (
                     <tr key={m.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -861,25 +861,26 @@ export default function AdminDashboard() {
                               Approve
                             </button>
                           )}
+                          {isSuperAdmin && (
+                            <select
+                              value={m.role}
+                              onChange={(e) => updateMemberRole(m.id, e.target.value as UserRole)}
+                              className="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-brand-gold"
+                            >
+                              <option value="member">Member</option>
+                              <option value="moderator">Moderator</option>
+                              <option value="admin">Admin</option>
+                              {m.role === 'super_admin' && <option value="super_admin">Super Admin</option>}
+                            </select>
+                          )}
                           {isSuperAdmin && m.email !== 'jemuvalos@gmail.com' && (
-                            <>
-                              <select
-                                value={m.role}
-                                onChange={(e) => updateMemberRole(m.id, e.target.value as UserRole)}
-                                className="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-brand-gold"
-                              >
-                                <option value="member">Member</option>
-                                <option value="moderator">Moderator</option>
-                                <option value="admin">Admin</option>
-                              </select>
-                              <button
-                                onClick={() => { if (confirm(`Remove ${m.name} from SEPAC? This cannot be undone.`)) deleteMember(m.id); }}
-                                className="px-2 py-1 bg-red-600 text-white rounded text-[10px] font-bold hover:bg-red-700 transition-colors flex items-center gap-1"
-                              >
-                                <Trash2 size={10} />
-                                <span>Remove</span>
-                              </button>
-                            </>
+                            <button
+                              onClick={() => { if (confirm(`Remove ${m.name} from SEPAC? This cannot be undone.`)) deleteMember(m.id); }}
+                              className="px-2 py-1 bg-red-600 text-white rounded text-[10px] font-bold hover:bg-red-700 transition-colors flex items-center gap-1"
+                            >
+                              <Trash2 size={10} />
+                              <span>Remove</span>
+                            </button>
                           )}
                         </div>
                       </td>
@@ -900,7 +901,7 @@ export default function AdminDashboard() {
           </h2>
 
           {pendingPosts.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+            <div className="text-center py-12 glass-panel rounded-xl border border-gray-200">
               <CheckCircle size={36} className="mx-auto text-emerald-500 mb-2" />
               <p className="text-sm font-semibold text-gray-700">No pending news posts for review.</p>
               <p className="text-xs text-gray-400">Approved posts will show directly on the feed tab.</p>
@@ -908,7 +909,7 @@ export default function AdminDashboard() {
           ) : (
             <div className="space-y-4">
               {pendingPosts.map((post) => (
-                <div key={post.id} className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
+                <div key={post.id} className="glass-panel p-5 rounded-xl border border-gray-200 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="px-2 py-0.5 bg-brand-gold-light text-brand-navy-dark rounded text-[10px] font-bold uppercase tracking-wider">
@@ -966,7 +967,7 @@ export default function AdminDashboard() {
             ) : (
               <div className="space-y-2">
                 {posts.filter(p => p.status === 'approved').map((post) => (
-                  <div key={post.id} className="flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200">
+                  <div key={post.id} className="flex items-center justify-between glass-panel p-3 rounded-lg border border-gray-200">
                     <div className="min-w-0">
                       <p className="text-xs font-bold text-gray-800 truncate">{post.title}</p>
                       <p className="text-[10px] text-gray-400">by {post.author_name}</p>
@@ -989,7 +990,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Direct Photo Uploader */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
             <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2">
               Add Photo Directly
             </h3>
@@ -1057,7 +1058,7 @@ export default function AdminDashboard() {
               </h3>
 
               {pendingPhotos.length === 0 ? (
-                <div className="text-center py-8 bg-white rounded-xl border border-gray-200">
+                <div className="text-center py-8 glass-panel rounded-xl border border-gray-200">
                   <CheckCircle size={36} className="mx-auto text-emerald-500 mb-2" />
                   <p className="text-sm font-semibold text-gray-700">No pending photo uploads for review.</p>
                   <p className="text-xs text-gray-400">All photos have been moderated.</p>
@@ -1065,7 +1066,7 @@ export default function AdminDashboard() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {pendingPhotos.map((photo) => (
-                    <div key={photo.id} className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
+                    <div key={photo.id} className="glass-panel rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
                       <div>
                         <img
                           src={photo.image_url}
@@ -1142,7 +1143,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Create Event Form */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm">
             {editingEventId ? (
               <>
                 <div className="flex justify-between items-center border-b border-brand-gold/20 pb-2 mb-4">
@@ -1356,7 +1357,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 italic">No published events found.</p>
               ) : (
                 events.map((ev) => (
-                  <div key={ev.id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex space-x-3 text-xs">
+                  <div key={ev.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm flex space-x-3 text-xs">
                     {ev.image_url && (
                       <img src={ev.image_url} alt={ev.title} className="w-16 h-16 rounded object-cover border flex-shrink-0" />
                     )}
@@ -1407,13 +1408,13 @@ export default function AdminDashboard() {
           </h2>
 
           {prayerRequests.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+            <div className="text-center py-12 glass-panel rounded-xl border border-gray-200">
               <p className="text-sm font-semibold text-gray-700">No prayer requests yet.</p>
             </div>
           ) : (
             <div className="space-y-4">
               {prayerRequests.map((pr) => (
-                <div key={pr.id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
+                <div key={pr.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <img src={pr.author_avatar} className="w-6 h-6 rounded-full object-cover border" />
@@ -1462,7 +1463,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Create Announcement */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm">
             <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2 mb-4">
               Broadcast Official Announcement
             </h3>
@@ -1525,7 +1526,7 @@ export default function AdminDashboard() {
 
             <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
               {announcements.map((ann) => (
-                <div key={ann.id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
+                <div key={ann.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <h4 className="font-bold text-brand-navy flex items-center space-x-1.5">
                       <Megaphone size={14} className="text-brand-gold" />
@@ -1561,7 +1562,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Create Advertisement Form */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm">
             <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2 mb-4">
               Publish New Advertisement
             </h3>
@@ -1658,7 +1659,7 @@ export default function AdminDashboard() {
                 </div>
               ) : (
                 advertisements.map((ad) => (
-                  <div key={ad.id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex gap-4 text-xs">
+                  <div key={ad.id} className="glass-panel p-4 rounded-xl border border-gray-200 shadow-sm flex gap-4 text-xs">
                     {ad.image_url && (
                       <img
                         src={ad.image_url}
@@ -1714,7 +1715,7 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
               {/* History Card */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                   <BookOpen size={16} className="text-brand-gold" />
                   <h3 className="font-serif-display text-sm font-bold text-brand-navy">History Section</h3>
@@ -1779,7 +1780,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Mission Card */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                   <Sparkles size={16} className="text-brand-gold" />
                   <h3 className="font-serif-display text-sm font-bold text-brand-navy">Mission Section</h3>
@@ -1826,7 +1827,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Vision Card */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
                 <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                   <ShieldCheck size={16} className="text-brand-gold" />
                   <h3 className="font-serif-display text-sm font-bold text-brand-navy">Vision Section</h3>
@@ -1875,7 +1876,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Contacts & Support Details */}
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+            <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
               <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
                 <Users size={16} className="text-brand-gold" />
                 <h3 className="font-serif-display text-sm font-bold text-brand-navy">Contact & Location Details</h3>
@@ -1966,7 +1967,7 @@ export default function AdminDashboard() {
           </form>
 
           {/* Leadership Team management section */}
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+          <div className="glass-panel p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
             <div className="flex items-center space-x-2 border-b border-gray-100 pb-2">
               <Users size={18} className="text-brand-gold" />
               <h3 className="font-serif-display text-base font-bold text-brand-navy">Leadership Team Members</h3>
@@ -2024,7 +2025,7 @@ export default function AdminDashboard() {
                     <label className="block font-semibold text-gray-700 mb-1">Leader Photo</label>
                     <div
                       onClick={() => leaderAvatarFileRef.current?.click()}
-                      className="border border-dashed border-gray-300 hover:border-brand-gold bg-white rounded-lg p-3 text-center cursor-pointer hover:bg-brand-cream/10 transition-all flex items-center justify-center space-x-2"
+                      className="border border-dashed border-gray-300 hover:border-brand-gold glass-panel rounded-lg p-3 text-center cursor-pointer hover:bg-brand-cream/10 transition-all flex items-center justify-center space-x-2"
                     >
                       <input
                         ref={leaderAvatarFileRef}
@@ -2066,7 +2067,7 @@ export default function AdminDashboard() {
                     <p className="text-xs text-gray-400 italic">No team members added yet.</p>
                   ) : (
                     siteSettings?.leadershipTeam.map((member) => (
-                      <div key={member.id} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start space-x-3 text-xs justify-between">
+                      <div key={member.id} className="glass-panel p-4 rounded-xl border border-gray-100 shadow-sm flex items-start space-x-3 text-xs justify-between">
                         <div className="flex items-center space-x-3 min-w-0">
                           <img
                             src={member.avatar}

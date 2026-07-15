@@ -123,7 +123,7 @@ function HomeSection({ setActiveTab, onOpenAuth }: { setActiveTab: (tab: string)
           </div>
 
           <div className="shrink-0">
-            <SEPACSeal size={280} className="bg-white rounded-full p-2 border-2 border-brand-gold shadow-2xl" />
+            <SEPACSeal size={280} className="glass-panel rounded-full p-2 border-2 border-brand-gold shadow-2xl" />
           </div>
 
         </div>
@@ -131,7 +131,7 @@ function HomeSection({ setActiveTab, onOpenAuth }: { setActiveTab: (tab: string)
 
       {/* Scripture spotlight block */}
       <div className="max-w-4xl mx-auto px-4 text-center">
-        <div className="bg-white border-y-2 border-brand-gold/30 py-8 px-6 shadow-sm rounded-lg">
+        <div className="glass-panel border-y-2 border-brand-gold/30 py-8 px-6 shadow-sm rounded-lg">
           <BookOpen className="mx-auto text-brand-gold mb-3" size={28} />
           <p className="font-serif-display text-base sm:text-lg italic text-gray-700 leading-relaxed">
             "{t('scripture.verse')}"
@@ -150,25 +150,25 @@ function HomeSection({ setActiveTab, onOpenAuth }: { setActiveTab: (tab: string)
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-navy text-center hover:shadow-md transition-shadow">
+          <div className="glass-panel p-6 rounded-xl shadow-sm border-t-4 border-brand-navy text-center hover:shadow-md transition-shadow">
             <Sparkles className="mx-auto text-brand-gold mb-3" size={24} />
             <h3 className="font-serif-display text-base font-bold text-brand-navy mb-2">{t('values.unity')}</h3>
             <p className="text-xs text-gray-500 leading-relaxed">{t('values.unityDesc')}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-gold text-center hover:shadow-md transition-shadow">
+          <div className="glass-panel p-6 rounded-xl shadow-sm border-t-4 border-brand-gold text-center hover:shadow-md transition-shadow">
             <BookOpen className="mx-auto text-brand-navy mb-3" size={24} />
             <h3 className="font-serif-display text-base font-bold text-brand-navy mb-2">{t('values.faith')}</h3>
             <p className="text-xs text-gray-500 leading-relaxed">{t('values.faithDesc')}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-navy text-center hover:shadow-md transition-shadow">
+          <div className="glass-panel p-6 rounded-xl shadow-sm border-t-4 border-brand-navy text-center hover:shadow-md transition-shadow">
             <Users className="mx-auto text-brand-gold mb-3" size={24} />
             <h3 className="font-serif-display text-base font-bold text-brand-navy mb-2">{t('values.fellowship')}</h3>
             <p className="text-xs text-gray-500 leading-relaxed">{t('values.fellowshipDesc')}</p>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-gold text-center hover:shadow-md transition-shadow">
+          <div className="glass-panel p-6 rounded-xl shadow-sm border-t-4 border-brand-gold text-center hover:shadow-md transition-shadow">
             <Heart className="mx-auto text-brand-navy mb-3" size={24} />
             <h3 className="font-serif-display text-base font-bold text-brand-navy mb-2">{t('values.service')}</h3>
             <p className="text-xs text-gray-500 leading-relaxed">{t('values.serviceDesc')}</p>
@@ -189,13 +189,13 @@ function HomeSection({ setActiveTab, onOpenAuth }: { setActiveTab: (tab: string)
           </div>
 
           {upcomingEvents.length === 0 ? (
-            <div className="p-8 bg-white border rounded-xl text-center text-xs text-gray-400">
+            <div className="p-8 glass-panel border rounded-xl text-center text-xs text-gray-400">
               No upcoming events scheduled. Check back soon!
             </div>
           ) : (
             <div className="space-y-4">
               {upcomingEvents.map((ev) => (
-                <div key={ev.id} className="bg-white p-4 rounded-xl shadow-sm border border-brand-navy/10 flex gap-4">
+                <div key={ev.id} className="glass-panel p-4 rounded-xl shadow-sm border border-brand-navy/10 flex gap-4">
                   {ev.image_url && (
                     <img src={ev.image_url} alt={ev.title} className="w-20 h-20 rounded-lg object-cover border" />
                   )}
@@ -227,13 +227,13 @@ function HomeSection({ setActiveTab, onOpenAuth }: { setActiveTab: (tab: string)
           </div>
 
           {approvedPosts.length === 0 ? (
-            <div className="p-8 bg-white border rounded-xl text-center text-xs text-gray-400">
+            <div className="p-8 glass-panel border rounded-xl text-center text-xs text-gray-400">
               No recent news articles published yet.
             </div>
           ) : (
             <div className="space-y-4">
               {approvedPosts.map((post) => (
-                <div key={post.id} className="bg-white p-4 rounded-xl shadow-sm border border-brand-navy/10 space-y-2">
+                <div key={post.id} className="glass-panel p-4 rounded-xl shadow-sm border border-brand-navy/10 space-y-2">
                   <div className="flex items-center justify-between text-[10px]">
                     <span className="px-2 py-0.5 bg-brand-gold-light text-brand-navy font-bold rounded uppercase">
                       {post.category}
@@ -311,7 +311,7 @@ function AboutSection() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 font-sans">
       
       {/* History and Intro */}
-      <div className="bg-white p-8 rounded-xl shadow-sm border border-brand-navy/10 space-y-4">
+      <div className="glass-panel p-8 rounded-xl shadow-sm border border-brand-navy/10 space-y-4">
         <h2 className="font-serif-display text-2xl font-bold text-brand-navy border-b border-brand-gold/30 pb-3">
           {historyTitle}
         </h2>
@@ -326,7 +326,7 @@ function AboutSection() {
       {/* Mission & Vision double column */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <div className="bg-white p-6 rounded-xl border border-brand-navy/10 shadow-sm space-y-3">
+        <div className="glass-panel p-6 rounded-xl border border-brand-navy/10 shadow-sm space-y-3">
           <div className="w-10 h-10 rounded-full bg-blue-50 text-brand-navy flex items-center justify-center">
             <BookOpen size={20} />
           </div>
@@ -334,7 +334,7 @@ function AboutSection() {
           <p className="text-xs text-gray-500 leading-relaxed">{missionText}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-xl border border-brand-navy/10 shadow-sm space-y-3">
+        <div className="glass-panel p-6 rounded-xl border border-brand-navy/10 shadow-sm space-y-3">
           <div className="w-10 h-10 rounded-full bg-amber-50 text-brand-gold flex items-center justify-center">
             <Sparkles size={20} />
           </div>
@@ -353,7 +353,7 @@ function AboutSection() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {team.map((member, i) => (
-            <div key={member.id || i} className="bg-white p-4 rounded-xl border border-brand-navy/10 shadow-sm text-center space-y-2">
+            <div key={member.id || i} className="glass-panel p-4 rounded-xl border border-brand-navy/10 shadow-sm text-center space-y-2">
               <img
                 src={member.avatar}
                 alt={member.name}
@@ -441,7 +441,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
       )}
 
       {/* Filter and Search Bar */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-white p-4 rounded-xl border border-brand-navy/10 shadow-sm">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 glass-panel p-4 rounded-xl border border-brand-navy/10 shadow-sm">
         
         {/* Search */}
         <div className="md:col-span-2 relative">
@@ -461,7 +461,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
           <select
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
-            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none bg-white cursor-pointer"
+            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none glass-panel cursor-pointer"
           >
             <option value="">All Graduation Years</option>
             {years.map(y => (
@@ -476,7 +476,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none bg-white cursor-pointer"
+            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none glass-panel cursor-pointer"
           >
             <option value="all">All Verification States</option>
             <option value="verified">Verified Alumni Only</option>
@@ -488,7 +488,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
 
       {/* Directory Grid */}
       {filtered.length === 0 ? (
-        <div className="p-12 text-center bg-white rounded-xl border border-gray-150 text-gray-400 text-xs max-w-lg mx-auto">
+        <div className="p-12 text-center glass-panel rounded-xl border border-gray-150 text-gray-400 text-xs max-w-lg mx-auto">
           No registered members match your search or filter criteria.
         </div>
       ) : (
@@ -498,7 +498,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
             return (
               <div 
                 key={m.id} 
-                className="bg-white rounded-2xl overflow-hidden border border-brand-navy/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-all group hover:border-brand-gold/40 cursor-pointer"
+                className="glass-panel rounded-2xl overflow-hidden border border-brand-navy/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-all group hover:border-brand-gold/40 cursor-pointer"
                 onClick={() => setSelectedMember(m)}
               >
                 <div className="p-5 text-center space-y-3 relative">
@@ -573,7 +573,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
             {/* Card Header */}
             <div className="flex items-center justify-between border-b border-brand-gold/30 pb-4 mb-5 relative z-10">
               <div className="flex items-center space-x-2">
-                <SEPACSeal size={42} className="bg-white rounded-full p-0.5 border border-brand-gold" />
+                <SEPACSeal size={42} className="glass-panel rounded-full p-0.5 border border-brand-gold" />
                 <div>
                   <h3 className="font-serif-display text-base font-bold tracking-tight text-white leading-none">SEPAC ALUMNI</h3>
                   <p className="text-[8px] uppercase tracking-widest text-brand-gold font-bold">ES Saint Esprit de Nyanza</p>
@@ -825,7 +825,7 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
 
       {/* Write Post Panel */}
       {showSubmit && (
-        <div className="bg-white p-6 rounded-xl border border-brand-navy/15 shadow-md space-y-4">
+        <div className="glass-panel p-6 rounded-xl border border-brand-navy/15 shadow-md space-y-4">
           <h3 className="font-serif-display text-base font-bold text-brand-navy">Share news or devotional</h3>
           
           <form onSubmit={handleSubmitPost} className="space-y-4 text-xs">
@@ -851,7 +851,7 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
                 <select
                   value={postCategory}
                   onChange={(e: any) => setPostCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold bg-white"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
                 >
                   <option value="News">News</option>
                   <option value="Devotional">Spiritual Devotional</option>
@@ -915,13 +915,13 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
 
       {/* Publications Stream */}
       {approvedPosts.length === 0 ? (
-        <div className="p-12 text-center bg-white border rounded-xl text-gray-400 text-xs">
+        <div className="p-12 text-center glass-panel border rounded-xl text-gray-400 text-xs">
           No approved news articles available on the feed.
         </div>
       ) : (
         <div className="space-y-6">
           {approvedPosts.map((post) => (
-            <div key={post.id} className="bg-white rounded-xl border border-brand-navy/10 shadow-sm overflow-hidden flex flex-col">
+            <div key={post.id} className="glass-panel rounded-xl border border-brand-navy/10 shadow-sm overflow-hidden flex flex-col">
               
               {/* Post Header */}
               <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
@@ -1000,7 +1000,7 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
                             alt={comm.author_name}
                             className="w-7 h-7 rounded-full object-cover border"
                           />
-                          <div className="bg-white p-2.5 rounded-lg border flex-1 min-w-0">
+                          <div className="glass-panel p-2.5 rounded-lg border flex-1 min-w-0">
                             <div className="flex items-center justify-between">
                               <p className="font-bold text-gray-800 text-[11px]">{comm.author_name}</p>
                               <span className="text-[9px] text-gray-400">{new Date(comm.created_at).toLocaleDateString()}</span>
@@ -1020,7 +1020,7 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
                         placeholder="Write an encouraging reply..."
                         value={commentInput}
                         onChange={(e) => setCommentInput(e.target.value)}
-                        className="flex-1 text-xs px-3.5 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-brand-gold bg-white"
+                        className="flex-1 text-xs px-3.5 py-2 rounded-lg border focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
                         onKeyDown={(e) => e.key === 'Enter' && handleSubmitComment(post.id)}
                       />
                       <button
@@ -1074,7 +1074,7 @@ function EventsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
           <button
             onClick={() => setActiveTab('upcoming')}
             className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${
-              activeTab === 'upcoming' ? 'bg-brand-navy text-brand-gold' : 'bg-white text-gray-700 hover:bg-gray-100'
+              activeTab === 'upcoming' ? 'bg-brand-navy text-brand-gold' : 'glass-panel text-gray-700 hover:bg-gray-100'
             }`}
           >
             Upcoming
@@ -1082,7 +1082,7 @@ function EventsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
           <button
             onClick={() => setActiveTab('past')}
             className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${
-              activeTab === 'past' ? 'bg-brand-navy text-brand-gold' : 'bg-white text-gray-700 hover:bg-gray-100'
+              activeTab === 'past' ? 'bg-brand-navy text-brand-gold' : 'glass-panel text-gray-700 hover:bg-gray-100'
             }`}
           >
             Past Archives
@@ -1091,13 +1091,13 @@ function EventsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
       </div>
 
       {currentList.length === 0 ? (
-        <div className="p-12 text-center bg-white border rounded-xl text-gray-400 text-xs">
+        <div className="p-12 text-center glass-panel border rounded-xl text-gray-400 text-xs">
           No assemblies scheduled in this category at this time.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {currentList.map((ev) => (
-            <div key={ev.id} className="bg-white rounded-xl overflow-hidden border border-brand-navy/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div key={ev.id} className="glass-panel rounded-xl overflow-hidden border border-brand-navy/10 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
                 {ev.image_url && (
                   <img src={ev.image_url} alt={ev.title} className="w-full h-48 object-cover" />
@@ -1256,7 +1256,7 @@ function GallerySection() {
       </div>
 
       {showUpload && (
-        <div className="bg-white p-6 rounded-xl border border-brand-navy/15 shadow-md max-w-lg mx-auto">
+        <div className="glass-panel p-6 rounded-xl border border-brand-navy/15 shadow-md max-w-lg mx-auto">
           <h3 className="font-serif-display text-base font-bold text-brand-navy mb-3">Upload Gallery Image</h3>
           
           <form onSubmit={handleSubmitPhoto} className="space-y-4 text-xs">
@@ -1271,7 +1271,7 @@ function GallerySection() {
                 value={uploadTag}
                 onChange={(e) => setUploadTag(e.target.value)}
                 placeholder="e.g. General Assembly 2025"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold bg-white"
+                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
               />
             </div>
 
@@ -1318,7 +1318,7 @@ function GallerySection() {
       )}
 
       {approvedPhotos.length === 0 ? (
-        <div className="p-12 text-center bg-white border rounded-xl text-gray-400 text-xs">
+        <div className="p-12 text-center glass-panel border rounded-xl text-gray-400 text-xs">
           No approved photos in the gallery yet. Be the first to upload!
         </div>
       ) : (
@@ -1327,7 +1327,7 @@ function GallerySection() {
             <div
               key={photo.id}
               onClick={() => setLightboxPhoto({ url: photo.image_url, tag: photo.event_tag })}
-              className="bg-white rounded-xl overflow-hidden border border-brand-navy/15 shadow-sm group hover:shadow-md transition-shadow cursor-pointer"
+              className="glass-panel rounded-xl overflow-hidden border border-brand-navy/15 shadow-sm group hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="aspect-[4/3] overflow-hidden bg-gray-100">
                 <img
@@ -1431,7 +1431,7 @@ function PrayersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         
         {/* Submit Form */}
-        <div className="bg-white p-5 rounded-xl border border-brand-navy/15 shadow-sm space-y-4 lg:sticky lg:top-24">
+        <div className="glass-panel p-5 rounded-xl border border-brand-navy/15 shadow-sm space-y-4 lg:sticky lg:top-24">
           <h3 className="font-serif-display text-base font-bold text-brand-navy border-b border-brand-gold/20 pb-2">
             Share a Prayer Request
           </h3>
@@ -1459,7 +1459,7 @@ function PrayersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
                 <select
                   value={visibility}
                   onChange={(e: any) => setVisibility(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold bg-white"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
                 >
                   <option value="public">Public (Everyone can see)</option>
                   <option value="private">Members Only</option>
@@ -1501,12 +1501,12 @@ function PrayersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
         {/* Requests List */}
         <div className="lg:col-span-2 space-y-6">
           {prayerRequests.length === 0 ? (
-            <div className="p-12 text-center bg-white border rounded-xl text-gray-400 text-xs">
+            <div className="p-12 text-center glass-panel border rounded-xl text-gray-400 text-xs">
               No prayer requests shared yet. Keep our community in prayer.
             </div>
           ) : (
             prayerRequests.map((req) => (
-              <div key={req.id} className="bg-white p-5 rounded-xl border border-brand-navy/10 shadow-sm space-y-4">
+              <div key={req.id} className="glass-panel p-5 rounded-xl border border-brand-navy/10 shadow-sm space-y-4">
                 
                 {/* Author info */}
                 <div className="flex items-center justify-between">
@@ -1585,7 +1585,7 @@ function PrayersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
                         placeholder="Type a word of faith and encouragement..."
                         value={commentInput}
                         onChange={(e) => setCommentInput(e.target.value)}
-                        className="flex-1 text-xs px-3 py-1.5 rounded border focus:outline-none focus:ring-1 focus:ring-brand-gold bg-white"
+                        className="flex-1 text-xs px-3 py-1.5 rounded border focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
                         onKeyDown={(e) => e.key === 'Enter' && handleSendEncouragement(req.id)}
                       />
                       <button
@@ -1644,7 +1644,7 @@ function ContactSection() {
       </div>
 
       {/* Contact Form */}
-      <div className="bg-white p-6 sm:p-8 rounded-2xl border border-brand-navy/10 shadow-sm max-w-xl mx-auto">
+      <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-brand-navy/10 shadow-sm max-w-xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           {success && (
             <p className="p-3 bg-emerald-50 text-emerald-800 rounded font-semibold">
@@ -1866,7 +1866,7 @@ function ProfileSection() {
         {/* Card Header */}
         <div className="flex items-center justify-between border-b border-brand-gold/30 pb-4 mb-4 relative z-10">
           <div className="flex items-center space-x-2">
-            <SEPACSeal size={42} className="bg-white rounded-full p-0.5 border border-brand-gold" />
+            <SEPACSeal size={42} className="glass-panel rounded-full p-0.5 border border-brand-gold" />
             <div>
               <h3 className="font-serif-display text-base font-bold tracking-tight text-white leading-none">SEPAC ALUMNI</h3>
               <p className="text-[8px] uppercase tracking-widest text-brand-gold font-bold">ES Saint Esprit de Nyanza</p>
@@ -1943,7 +1943,7 @@ function ProfileSection() {
       </div>
 
       {/* 2. Editing Portal Form */}
-      <div className="bg-white rounded-2xl border border-brand-navy/15 shadow-sm overflow-hidden max-w-xl mx-auto">
+      <div className="glass-panel rounded-2xl border border-brand-navy/15 shadow-sm overflow-hidden max-w-xl mx-auto">
         <div className="bg-brand-navy text-white px-6 py-4 border-b border-brand-gold/40 flex justify-between items-center">
           <h3 className="font-serif-display text-sm font-bold tracking-wide text-brand-gold">Update Account Identification</h3>
           <span className="text-[9px] uppercase text-brand-gold/80 font-bold">ES Saint Esprit</span>
@@ -1974,7 +1974,7 @@ function ProfileSection() {
               <button
                 type="button"
                 onClick={() => avatarInputRef.current?.click()}
-                className="px-3 py-1 bg-white border border-gray-300 hover:border-brand-gold text-brand-navy font-bold rounded-lg uppercase text-[9px] transition-all"
+                className="px-3 py-1 glass-panel border border-gray-300 hover:border-brand-gold text-brand-navy font-bold rounded-lg uppercase text-[9px] transition-all"
               >
                 {uploadingAvatar ? 'Uploading...' : 'Change Avatar'}
               </button>
@@ -2004,7 +2004,7 @@ function ProfileSection() {
               <button
                 type="button"
                 onClick={() => schoolInputRef.current?.click()}
-                className="px-3 py-1 bg-white border border-gray-300 hover:border-brand-gold text-brand-navy font-bold rounded-lg uppercase text-[9px] transition-all"
+                className="px-3 py-1 glass-panel border border-gray-300 hover:border-brand-gold text-brand-navy font-bold rounded-lg uppercase text-[9px] transition-all"
               >
                 {uploadingSchool ? 'Uploading...' : 'Upload School Photo'}
               </button>
@@ -2113,7 +2113,7 @@ function AdvertsSection() {
       </div>
 
       {advertisements.length === 0 ? (
-        <div className="bg-white border border-gray-150 p-12 text-center rounded-xl shadow-sm max-w-xl mx-auto">
+        <div className="glass-panel border border-gray-150 p-12 text-center rounded-xl shadow-sm max-w-xl mx-auto">
           <p className="text-gray-500 font-medium mb-3">No active advertisements at this time.</p>
           <p className="text-xs text-gray-400">
             Are you an alumnus wishing to advertise your business, services, or events to the community? Contact the SEPAC executive committee via the Contact tab!
@@ -2122,7 +2122,7 @@ function AdvertsSection() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {advertisements.map((ad) => (
-            <div key={ad.id} className="bg-white border border-brand-navy/10 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
+            <div key={ad.id} className="glass-panel border border-brand-navy/10 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
               {ad.image_url && (
                 <img
                   src={ad.image_url}

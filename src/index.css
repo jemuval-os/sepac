@@ -17,13 +17,91 @@
 }
 
 body {
-  background-color: var(--color-brand-cream);
+  background-color: var(--color-brand-navy-dark);
   color: var(--color-brand-navy);
   font-family: var(--font-sans);
 }
 
 .font-serif-display {
   font-family: var(--font-serif);
+}
+
+/* ============================================================
+   SEPAC Glassmorphism System
+   ============================================================ */
+
+/* Fixed wallpaper: the SEPAC seal, blurred and tinted navy,
+   sits behind every screen like an iOS lock-screen backdrop. */
+.sepac-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  background: linear-gradient(160deg, #101B4D 0%, #1B2A6B 45%, #283D8F 100%);
+}
+.sepac-wallpaper::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background-image: url('https://ohuqtpptjmjfikqkqzxi.supabase.co/storage/v1/object/public/sepac%20logo/Screenshot%202026-07-11%20181801.png');
+  background-size: 60%;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+  filter: blur(38px) saturate(120%);
+  opacity: 0.55;
+  transform: scale(1.15);
+}
+.sepac-wallpaper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(201,168,76,0.10), transparent 55%),
+              linear-gradient(180deg, rgba(16,27,77,0.35) 0%, rgba(16,27,77,0.65) 100%);
+}
+
+/* Core glass panel — used for every card, nav bar, modal, footer. */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(16, 27, 77, 0.16), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* A darker glass variant for elements meant to sit directly over
+   the navy wallpaper without a card underneath (e.g. the navbar). */
+.glass-panel-dark {
+  background: rgba(16, 27, 77, 0.45);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  color: #FAF9F6;
+}
+
+/* Welcome / splash screen */
+.splash-fade-out {
+  animation: splashFadeOut 0.6s ease forwards;
+}
+@keyframes splashFadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+.splash-logo-in {
+  animation: splashLogoIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes splashLogoIn {
+  from { opacity: 0; transform: scale(0.85) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.splash-text-in {
+  animation: splashTextIn 0.8s ease both;
+  animation-delay: 0.35s;
+}
+@keyframes splashTextIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Custom Scrollbar for rich feel */

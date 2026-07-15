@@ -47,7 +47,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }: NavbarPr
   const isAdmin = user && (user.role === 'admin' || user.role === 'super_admin' || user.role === 'moderator');
 
   return (
-    <nav className="sticky top-0 z-50 bg-brand-navy text-white shadow-md border-b-4 border-brand-gold">
+    <nav className="sticky top-0 z-50 glass-panel-dark rounded-none border-x-0 border-t-0 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
@@ -56,7 +56,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }: NavbarPr
             onClick={() => handleTabClick('home')} 
             className="flex items-center space-x-3 cursor-pointer group"
           >
-            <SEPACSeal size={52} className="bg-white rounded-full p-0.5 border border-brand-gold group-hover:scale-105 transition-transform" />
+            <SEPACSeal size={52} className="glass-panel rounded-full p-0.5 border border-brand-gold group-hover:scale-105 transition-transform" />
             <div>
               <span className="font-serif-display text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-brand-gold transition-colors block">
                 SEPAC
@@ -116,7 +116,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }: NavbarPr
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white text-gray-800 ring-1 ring-black/5 divide-y divide-gray-100 z-50">
+                  <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg glass-panel text-gray-800 ring-1 ring-black/5 divide-y divide-gray-100 z-50">
                     <div className="px-4 py-3">
                       <p className="text-xs text-gray-500">Logged in as</p>
                       <p className="text-sm font-semibold truncate text-brand-navy">{user.email}</p>
@@ -202,7 +202,7 @@ export default function Navbar({ activeTab, setActiveTab, onOpenAuth }: NavbarPr
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-brand-navy-dark border-t border-brand-gold/20 px-2 pt-2 pb-4 space-y-1 animate-[fadeIn_0.15s_ease-out]">
+        <div className="lg:hidden glass-panel-dark rounded-none border-x-0 border-b-0 px-2 pt-2 pb-4 space-y-1 animate-[fadeIn_0.15s_ease-out]">
           {allItems.map((item) => (
             <button
               key={item.id}

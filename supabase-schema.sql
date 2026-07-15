@@ -32,7 +32,7 @@ set search_path = public
 as $$
   select exists (
     select 1 from public.profiles
-    where id = auth.uid() and role in ('admin','super_admin') and approved = true
+    where id = auth.uid() and role in ('admin','super_admin','moderator') and approved = true
   );
 $$;
 

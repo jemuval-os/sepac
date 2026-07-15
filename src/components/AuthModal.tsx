@@ -160,7 +160,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-navy-dark/70 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-white rounded-xl shadow-2xl border border-brand-gold/30 overflow-hidden my-8">
+      <div className="relative w-full max-w-lg glass-panel rounded-3xl shadow-2xl border border-white/60 overflow-hidden my-8">
         
         {/* Header Block */}
         <div className="bg-brand-navy text-white px-6 py-4 flex items-center justify-between border-b border-brand-gold/40">

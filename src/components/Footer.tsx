@@ -11,10 +11,10 @@ export default function Footer({ setActiveTab }: { setActiveTab: (tab: string) =
   const address = (lang === 'rw' ? siteSettings?.contacts?.address_rw : siteSettings?.contacts?.address_en) || 'ES Saint Esprit, Nyanza, Rwanda';
 
   return (
-    <footer className="bg-brand-navy-dark text-white border-t-2 border-brand-gold/50 font-sans">
+    <footer className="glass-panel-dark rounded-none border-x-0 border-b-0 font-sans mt-12">
       
       {/* Upper Scripture Banner */}
-      <div className="bg-brand-navy border-b border-brand-gold/20 py-8 px-4">
+      <div className="bg-black/15 border-b border-white/10 py-8 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <p className="font-serif-display text-base sm:text-lg italic text-brand-gold-light leading-relaxed tracking-wide">
             "{t('scripture.verse')}"
@@ -32,7 +32,7 @@ export default function Footer({ setActiveTab }: { setActiveTab: (tab: string) =
           {/* Brand & Logo block */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center space-x-3">
-              <SEPACSeal size={64} className="bg-white rounded-full p-0.5 border border-brand-gold" />
+              <SEPACSeal size={64} className="glass-panel rounded-full p-0.5 border border-brand-gold" />
               <div>
                 <h3 className="font-serif-display text-lg font-bold text-white tracking-wider">SEPAC</h3>
                 <p className="text-[10px] text-brand-gold uppercase tracking-widest font-bold -mt-1">
