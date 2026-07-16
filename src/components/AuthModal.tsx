@@ -265,54 +265,12 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
           {!isLogin && (
             <div className="space-y-4">
-              {/* Profile Image Drag-and-Drop Uploader */}
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
-                  {t('auth.avatar')}
-                </label>
-                <div
-                  onDragEnter={handleDrag}
-                  onDragOver={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDrop={handleDrop}
-                  onClick={triggerFileSelect}
-                  className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors ${
-                    dragActive 
-                      ? 'border-brand-gold bg-brand-cream' 
-                      : avatarUrl 
-                        ? 'border-emerald-300 bg-emerald-50/25' 
-                        : 'border-gray-300 hover:border-brand-gold hover:bg-brand-cream/30'
-                  }`}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    onChange={handleFileChange}
-                    accept="image/*"
-                    className="hidden"
-                  />
-                  {avatarUrl ? (
-                    <div className="flex items-center justify-center space-x-3">
-                      <img
-                        src={avatarUrl}
-                        alt="Avatar Preview"
-                        className="w-12 h-12 rounded-full object-cover border border-brand-gold"
-                      />
-                      <div className="text-left">
-                        <p className="text-xs font-bold text-emerald-800">Photo Uploaded Successfully</p>
-                        <p className="text-[10px] text-gray-500">Drag another photo or click to change</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-1 text-gray-600">
-                      <Upload size={20} className="mx-auto text-brand-navy" />
-                      <p className="text-xs font-medium">
-                        {uploading ? 'Uploading picture...' : 'Drag and drop your profile photo, or click to upload'}
-                      </p>
-                      <p className="text-[10px] text-gray-400">Supports PNG, JPG, GIF up to 5MB</p>
-                    </div>
-                  )}
-                </div>
+              {/* Profile photo can't be uploaded before the account exists (no
+                  authenticated session yet) — point people to their Profile
+                  page instead, where the same uploader works correctly. */}
+              <div className="flex items-start gap-2 bg-brand-cream/60 border border-brand-gold/30 rounded-lg p-3 text-[11px] text-gray-600">
+                <Upload size={14} className="mt-0.5 shrink-0 text-brand-gold-dark" />
+                <span>You can add a profile photo after your account is created and confirmed — just visit <strong>My Profile</strong> once logged in.</span>
               </div>
 
               {/* Full Name */}
