@@ -38,6 +38,10 @@ interface SEPACContextProps {
   register: (data: Partial<Profile> & { password?: string }) => Promise<{ success: boolean; message?: string; error?: string }>;
   logout: () => void;
   updateProfile: (data: Partial<Profile>) => Promise<boolean>;
+  sendPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
+  updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
+  passwordRecoveryMode: boolean;
+  setPasswordRecoveryMode: (value: boolean) => void;
 
   approveMember: (id: string, approved: boolean) => Promise<boolean>;
   updateMemberRole: (id: string, role: UserRole) => Promise<boolean>;
@@ -98,6 +102,7 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
+  const [passwordRecoveryMode, setPasswordRecoveryMode] = useState(false);
   const [analytics, setAnalytics] = useState<any>({
     approvedMembers: 0,
     totalMembers: 0,
@@ -218,7 +223,11 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
       }
     });
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setPasswordRecoveryMode(true);
+        return;
+      }
       if (session?.user) {
         const profile = await fetchProfile(session.user.id);
         setUserState(profile);
@@ -267,7 +276,11 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error || !data.user) {
-        return { success: false, error: error?.message || 'Invalid email or password' };
+        const rawMessage = error?.message || '';
+        const friendlyMessage = rawMessage.toLowerCase().includes('email not confirmed')
+          ? 'Please confirm your email first — check your inbox for the confirmation link we sent.'
+          : (rawMessage || 'Invalid email or password');
+        return { success: false, error: friendlyMessage };
       }
       const profile = await fetchProfile(data.user.id);
       setUserState(profile);
@@ -305,7 +318,7 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
 
       return {
         success: true,
-        message: 'Account created and activated. Welcome to SEPAC!'
+        message: 'Account created! Check your email and click the confirmation link before logging in.'
       };
     } catch (err) {
       return { success: false, error: 'Registration failed due to networking issues' };
@@ -323,6 +336,28 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
     if (error || !updated) return false;
     setUserState(updated as Profile);
     return true;
+  };
+
+  const sendPasswordReset = async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin
+      });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: 'Network error sending reset email' };
+    }
+  };
+
+  const updatePassword = async (newPassword: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) return { success: false, error: error.message };
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: 'Network error updating password' };
+    }
   };
 
   // ---------- admin: members ----------
@@ -531,7 +566,7 @@ export function SEPACProvider({ children }: { children: React.ReactNode }) {
       lang, setLang, t, user, setUser: setUserState,
       members, posts, events, gallery, prayerRequests, announcements, advertisements,
       analytics, likes, siteSettings,
-      login, register, logout, updateProfile,
+      login, register, logout, updateProfile, sendPasswordReset, updatePassword, passwordRecoveryMode, setPasswordRecoveryMode,
       approveMember, updateMemberRole, deleteMember,
       createPost, updatePostStatus, deletePost, likePost, addComment, getCommentsForPost, deleteComment,
       createEvent, rsvpEvent, deleteEvent, updateEvent,

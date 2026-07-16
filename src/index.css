@@ -26,6 +26,18 @@ body {
   font-family: var(--font-serif);
 }
 
+/* Global fallback: Tailwind's preflight makes form fields background-
+   transparent by default. That was fine on the old light cream page,
+   but is invisible on the new dark wallpaper. Give every input/textarea/
+   select a legible white surface unless a component explicitly overrides it. */
+input, textarea, select {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #1B2A6B;
+}
+input::placeholder, textarea::placeholder {
+  color: #6b7280;
+}
+
 /* ============================================================
    SEPAC Glassmorphism System
    ============================================================ */
@@ -65,22 +77,22 @@ body {
    bright rim-light border, and a soft inner sheen at the top edge. */
 .glass-panel {
   position: relative;
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(14px) saturate(220%) brightness(1.08);
-  -webkit-backdrop-filter: blur(14px) saturate(220%) brightness(1.08);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 8px 32px rgba(16, 27, 77, 0.22), inset 0 1px 0 rgba(255,255,255,0.65), inset 0 0 50px rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(22px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter: blur(22px) saturate(200%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 40px rgba(16, 27, 77, 0.30), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 0 40px rgba(255,255,255,0.08);
 }
 
 /* A darker glass variant for elements meant to sit directly over
    the navy wallpaper without a card underneath (e.g. the navbar). */
 .glass-panel-dark {
   position: relative;
-  background: rgba(16, 27, 77, 0.16);
-  backdrop-filter: blur(16px) saturate(200%) brightness(1.05);
-  -webkit-backdrop-filter: blur(16px) saturate(200%) brightness(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.14);
+  background: rgba(16, 27, 77, 0.55);
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255,255,255,0.16);
   color: #FAF9F6;
 }
 
@@ -97,12 +109,12 @@ body {
 .glass-pill {
   display: inline-flex;
   align-items: center;
-  background: rgba(16, 27, 77, 0.22);
-  backdrop-filter: blur(12px) saturate(200%) brightness(1.05);
-  -webkit-backdrop-filter: blur(12px) saturate(200%) brightness(1.05);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(16, 27, 77, 0.60);
+  backdrop-filter: blur(20px) saturate(200%) brightness(1.05);
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.18);
   color: #FAF9F6;
 }
 

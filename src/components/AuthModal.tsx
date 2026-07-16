@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSEPAC } from '../context/SEPACContext';
-import { X, Upload, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, Upload, CheckCircle2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: AuthModalProps) {
-  const { t, login, register, uploadImageBase64 } = useSEPAC();
+  const { t, login, register, uploadImageBase64, sendPasswordReset } = useSEPAC();
   const [isLogin, setIsLogin] = useState(initialMode === 'login');
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
   }, [isOpen, initialMode]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [gradYear, setGradYear] = useState('2015');
   const [phone, setPhone] = useState('');
@@ -30,6 +31,11 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSending, setForgotSending] = useState(false);
+  const [forgotSent, setForgotSent] = useState(false);
+  const [forgotError, setForgotError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
@@ -165,7 +171,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
         {/* Header Block */}
         <div className="bg-brand-navy text-white px-6 py-4 flex items-center justify-between border-b border-brand-gold/40">
           <h2 className="font-serif-display text-lg font-bold tracking-wide text-brand-gold">
-            {isLogin ? t('auth.loginTitle') : t('auth.registerTitle')}
+            {showForgotPassword ? 'Reset Password' : (isLogin ? t('auth.loginTitle') : t('auth.registerTitle'))}
           </h2>
           <button 
             onClick={onClose}
@@ -175,7 +181,72 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
           </button>
         </div>
 
-        {/* Form Block */}
+        {showForgotPassword ? (
+          <div className="p-6 space-y-4">
+            {forgotSent ? (
+              <div className="text-center py-6">
+                <CheckCircle2 className="mx-auto text-emerald-600 mb-3" size={40} />
+                <p className="font-bold text-emerald-800 text-sm">Reset link sent!</p>
+                <p className="text-xs text-gray-600 mt-1">
+                  Check <strong>{forgotEmail}</strong> for a link to set a new password. If you don't see it, check your spam folder.
+                </p>
+                <button
+                  onClick={() => setShowForgotPassword(false)}
+                  className="mt-5 text-xs font-bold text-brand-navy hover:underline"
+                >
+                  Back to login
+                </button>
+              </div>
+            ) : (
+              <>
+                <p className="text-xs text-gray-600">
+                  Enter the email address on your SEPAC account and we'll send you a link to reset your password.
+                </p>
+                {forgotError && (
+                  <div className="flex items-start space-x-2 bg-red-50 text-red-700 p-3 rounded-lg text-xs border border-red-100">
+                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                    <span>{forgotError}</span>
+                  </div>
+                )}
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Email *</label>
+                  <input
+                    type="email"
+                    required
+                    value={forgotEmail}
+                    onChange={(e) => setForgotEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="w-full text-xs px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold"
+                  />
+                </div>
+                <button
+                  onClick={async () => {
+                    setForgotError('');
+                    setForgotSending(true);
+                    const res = await sendPasswordReset(forgotEmail);
+                    setForgotSending(false);
+                    if (res.success) {
+                      setForgotSent(true);
+                    } else {
+                      setForgotError(res.error || 'Could not send reset email.');
+                    }
+                  }}
+                  disabled={forgotSending}
+                  className="w-full py-2.5 bg-brand-navy hover:bg-brand-navy-light text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer disabled:opacity-60"
+                >
+                  {forgotSending ? 'Sending...' : 'Send Reset Link'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowForgotPassword(false)}
+                  className="w-full text-center text-xs font-bold text-gray-500 hover:text-brand-navy"
+                >
+                  Back to login
+                </button>
+              </>
+            )}
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           
           {error && (
@@ -333,18 +404,32 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
             <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
               {t('auth.password')} *
             </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full text-xs px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full text-xs px-3.5 py-2.5 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-navy"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
+            </div>
             {isLogin && (
-              <p className="mt-1 text-[10px] text-gray-400">
-                Tip: Standard password accepted.
-              </p>
+              <button
+                type="button"
+                onClick={() => { setShowForgotPassword(true); setForgotEmail(email); setForgotSent(false); setForgotError(''); }}
+                className="mt-1.5 text-[11px] font-bold text-brand-gold-dark hover:underline"
+              >
+                Forgot password?
+              </button>
             )}
           </div>
 
@@ -377,6 +462,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
           </div>
 
         </form>
+        )}
       </div>
     </div>
   );

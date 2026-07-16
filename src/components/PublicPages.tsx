@@ -461,7 +461,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
           <select
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
-            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none glass-panel cursor-pointer"
+            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 bg-white/90 text-gray-800 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none cursor-pointer"
           >
             <option value="">All Graduation Years</option>
             {years.map(y => (
@@ -476,7 +476,7 @@ function MembersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none glass-panel cursor-pointer"
+            className="w-full text-xs pl-9 pr-4 py-3 rounded-lg border border-gray-200 bg-white/90 text-gray-800 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold appearance-none cursor-pointer"
           >
             <option value="all">All Verification States</option>
             <option value="verified">Verified Alumni Only</option>
@@ -851,7 +851,7 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
                 <select
                   value={postCategory}
                   onChange={(e: any) => setPostCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/90 text-gray-800 focus:outline-none focus:ring-1 focus:ring-brand-gold"
                 >
                   <option value="News">News</option>
                   <option value="Devotional">Spiritual Devotional</option>
@@ -869,7 +869,7 @@ function NewsSection({ onOpenAuth }: { onOpenAuth: () => void }) {
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
                 placeholder="Share your spiritual encouragement, updates, or announcements with other alumni..."
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/90 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
               />
             </div>
 
@@ -1271,7 +1271,7 @@ function GallerySection() {
                 value={uploadTag}
                 onChange={(e) => setUploadTag(e.target.value)}
                 placeholder="e.g. General Assembly 2025"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
+                className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/90 text-gray-800 focus:outline-none focus:ring-1 focus:ring-brand-gold"
               />
             </div>
 
@@ -1450,7 +1450,7 @@ function PrayersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="How can your SEPAC alumni family pray for you today?"
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/90 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
                 />
               </div>
 
@@ -1459,7 +1459,7 @@ function PrayersSection({ onOpenAuth }: { onOpenAuth: (mode?: 'login' | 'registe
                 <select
                   value={visibility}
                   onChange={(e: any) => setVisibility(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold glass-panel"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/90 text-gray-800 focus:outline-none focus:ring-1 focus:ring-brand-gold"
                 >
                   <option value="public">Public (Everyone can see)</option>
                   <option value="private">Members Only</option>
@@ -1684,7 +1684,7 @@ function ContactSection() {
               value={msg}
               onChange={(e) => setMsg(e.target.value)}
               placeholder="Write your query, suggestions, or spiritual prayer requests..."
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 bg-white/90 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
             />
           </div>
 
@@ -2063,7 +2063,7 @@ function ProfileSection() {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               placeholder="Tell us about your faith journey and life path after school..."
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/90 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-brand-gold resize-none"
             />
           </div>
 

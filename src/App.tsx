@@ -11,13 +11,14 @@ import AuthModal from './components/AuthModal';
 import PublicPages from './components/PublicPages';
 import AdminDashboard from './components/AdminDashboard';
 import WelcomeSplash from './components/WelcomeSplash';
+import ResetPasswordScreen from './components/ResetPasswordScreen';
 import { Megaphone, X, Bell } from 'lucide-react';
 
 function SEPACAppContent() {
   const [activeTab, setActiveTab] = useState('home');
   const [authOpen, setAuthOpen] = useState(false);
   const [authInitialMode, setAuthInitialMode] = useState<'login' | 'register'>('login');
-  const { announcements, user } = useSEPAC();
+  const { announcements, user, passwordRecoveryMode } = useSEPAC();
   const [latestAnnouncement, setLatestAnnouncement] = useState<any>(null);
 
   const handleOpenAuth = (mode?: 'login' | 'register') => {
@@ -50,6 +51,7 @@ function SEPACAppContent() {
 
       <div className="sepac-wallpaper" />
       <WelcomeSplash />
+      {passwordRecoveryMode && <ResetPasswordScreen />}
       {/* Floating Real-time Announcement Toast */}
       {latestAnnouncement && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[80] w-full max-w-xl px-4 animate-[bounce_1s_ease_1]">
