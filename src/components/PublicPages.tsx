@@ -300,12 +300,7 @@ function AboutSection() {
   const visionTitle = siteSettings ? (lang === 'rw' ? siteSettings.visionTitle_rw : siteSettings.visionTitle_en) : t('about.vision');
   const visionText = siteSettings ? (lang === 'rw' ? siteSettings.visionText_rw : siteSettings.visionText_en) : t('about.visionText');
 
-  const team = siteSettings?.leadershipTeam || [
-    { id: 'lead-1', name: 'Jean Claude Jemuvalos', role_en: 'President & Super Admin', role_rw: 'Perezida & Super Admin', year: 2012, avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150' },
-    { id: 'lead-2', name: 'Alice Uwase', role_en: 'Vice President & Coordinator', role_rw: 'Visi Perezida & Coordinator', year: 2018, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150' },
-    { id: 'lead-3', name: 'Eric Kalisa', role_en: 'Treasurer & Worship Leader', role_rw: 'Umbitsi & Worship Leader', year: 2015, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150' },
-    { id: 'lead-4', name: 'Sister Chantal', role_en: 'Mentorship Coordinator', role_rw: 'Mentorship Coordinator', year: 2010, avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150' }
-  ];
+  const team = siteSettings?.leadershipTeam || [];
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 font-sans">
@@ -351,6 +346,11 @@ function AboutSection() {
           <div className="h-0.5 w-12 bg-brand-gold mx-auto mt-3" />
         </div>
 
+        {team.length === 0 ? (
+          <div className="glass-panel p-8 rounded-[1.75rem] text-center">
+            <p className="text-xs text-gray-500 italic">Leadership team members will appear here once added by an admin.</p>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {team.map((member, i) => (
             <div key={member.id || i} className="glass-panel p-4 rounded-[1.75rem] border border-brand-navy/10 shadow-sm text-center space-y-2">
@@ -370,6 +370,7 @@ function AboutSection() {
             </div>
           ))}
         </div>
+        )}
       </div>
 
     </div>
@@ -1169,7 +1170,7 @@ function GallerySection() {
   
   const [showUpload, setShowUpload] = useState(false);
   const [uploadTag, setUploadTag] = useState('');
-  const [uploadUrl, setUploadUrl] = useState('');
+  const [uploadQueue, setUploadQueue] = useState<{ file: File; url: string | null; status: 'pending' | 'uploading' | 'done' | 'error' }[]>([]);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState('');
@@ -1180,28 +1181,34 @@ function GallerySection() {
   const isAdmin = user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'moderator';
   const approvedPhotos = gallery.filter(g => g.approved);
 
-  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setUploadingPhoto(true);
-      setUploadError('');
-      
-      try {
+  const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    if (files.length === 0) return;
+
+    setUploadError('');
+    const initialQueue = files.map(file => ({ file, url: null as string | null, status: 'pending' as const }));
+    setUploadQueue(initialQueue);
+    setUploadingPhoto(true);
+
+    // Upload every selected photo to Storage in parallel, tracking each one's progress
+    const results = await Promise.all(files.map(async (file, index) => {
+      setUploadQueue(prev => prev.map((item, i) => i === index ? { ...item, status: 'uploading' } : item));
+      const base64: string = await new Promise((resolve, reject) => {
         const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
         reader.readAsDataURL(file);
-        reader.onloadend = async () => {
-          const url = await uploadImageBase64(reader.result as string, file.name.split('.').pop());
-          if (url) {
-            setUploadUrl(url);
-          } else {
-            setUploadError('Photo file upload failed.');
-          }
-          setUploadingPhoto(false);
-        };
-      } catch (err) {
-        setUploadError('Error processing picture.');
-        setUploadingPhoto(false);
-      }
+      });
+      const url = await uploadImageBase64(base64, file.name.split('.').pop());
+      setUploadQueue(prev => prev.map((item, i) => i === index ? { ...item, url, status: url ? 'done' : 'error' } : item));
+      return url;
+    }));
+
+    setUploadingPhoto(false);
+    if (results.every(r => !r)) {
+      setUploadError('All uploads failed. Please try again.');
+    } else if (results.some(r => !r)) {
+      setUploadError('Some photos failed to upload — the rest are ready to post.');
     }
   };
 
@@ -1210,21 +1217,25 @@ function GallerySection() {
     setUploadError('');
     setUploadSuccess('');
 
-    if (!uploadUrl || !uploadTag) {
-      setUploadError('Please select a photo and enter a descriptive tag.');
+    const successfulUrls = uploadQueue.filter(item => item.status === 'done' && item.url).map(item => item.url as string);
+
+    if (successfulUrls.length === 0 || !uploadTag) {
+      setUploadError('Please select at least one photo and enter a descriptive tag.');
       return;
     }
 
-    const ok = await uploadPhoto(uploadUrl, uploadTag);
-    if (ok) {
+    const results = await Promise.all(successfulUrls.map(url => uploadPhoto(url, uploadTag)));
+    const successCount = results.filter(Boolean).length;
+
+    if (successCount > 0) {
       const isAutoApproved = user?.role === 'admin' || user?.role === 'super_admin' || user?.role === 'moderator';
       setUploadSuccess(
-        isAutoApproved 
-          ? 'Photo posted successfully!' 
-          : 'Photo uploaded! It will be visible in the gallery once approved by an administrator.'
+        isAutoApproved
+          ? `${successCount} photo${successCount > 1 ? 's' : ''} posted successfully!`
+          : `${successCount} photo${successCount > 1 ? 's' : ''} uploaded! They'll be visible once approved by an administrator.`
       );
       setUploadTag('');
-      setUploadUrl('');
+      setUploadQueue([]);
       setTimeout(() => setShowUpload(false), 4000);
     } else {
       setUploadError('Failed to publish photo metadata.');
@@ -1275,9 +1286,9 @@ function GallerySection() {
               />
             </div>
 
-            {/* Base64 Gallery drag and drop file box */}
+            {/* Base64 Gallery drag and drop file box — supports multiple files at once */}
             <div>
-              <label className="block font-bold text-gray-700 mb-1">Select Photo *</label>
+              <label className="block font-bold text-gray-700 mb-1">Select Photos *</label>
               <div
                 onClick={() => photoFileRef.current?.click()}
                 className="border-2 border-dashed border-gray-300 hover:border-brand-gold rounded-lg p-6 text-center cursor-pointer hover:bg-brand-cream/20 transition-all flex flex-col items-center justify-center space-y-2"
@@ -1285,20 +1296,38 @@ function GallerySection() {
                 <input
                   ref={photoFileRef}
                   type="file"
-                  onChange={handlePhotoUpload}
+                  onChange={handlePhotoSelect}
                   accept="image/*"
+                  multiple
                   className="hidden"
                 />
-                {uploadUrl ? (
-                  <div className="space-y-2">
-                    <img src={uploadUrl} alt="Gallery Preview" className="max-h-40 rounded object-cover mx-auto border" />
-                    <p className="text-emerald-700 font-bold">Image loaded successfully</p>
+                {uploadQueue.length > 0 ? (
+                  <div className="w-full space-y-2">
+                    <div className="grid grid-cols-4 gap-2">
+                      {uploadQueue.map((item, i) => (
+                        <div key={i} className="relative aspect-square rounded overflow-hidden border">
+                          <img src={item.url || URL.createObjectURL(item.file)} className="w-full h-full object-cover" />
+                          {item.status === 'uploading' && (
+                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-[9px] font-bold">...</div>
+                          )}
+                          {item.status === 'error' && (
+                            <div className="absolute inset-0 bg-red-600/70 flex items-center justify-center text-white text-[9px] font-bold">Failed</div>
+                          )}
+                          {item.status === 'done' && (
+                            <div className="absolute bottom-0 right-0 bg-emerald-600 text-white text-[8px] px-1 rounded-tl">✓</div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-emerald-700 font-bold text-[11px]">
+                      {uploadQueue.filter(i => i.status === 'done').length} of {uploadQueue.length} ready
+                    </p>
                   </div>
                 ) : (
                   <>
                     <Upload size={24} className="text-brand-navy" />
                     <span className="font-medium text-gray-600">
-                      {uploadingPhoto ? 'Uploading cover...' : 'Drag and drop or click to upload gallery photo'}
+                      {uploadingPhoto ? 'Uploading photos...' : 'Drag and drop or click to select one or more photos'}
                     </span>
                   </>
                 )}
@@ -1307,10 +1336,10 @@ function GallerySection() {
 
             <button
               type="submit"
-              disabled={uploadingPhoto || !uploadUrl}
+              disabled={uploadingPhoto || uploadQueue.filter(i => i.status === 'done').length === 0}
               className="w-full py-2.5 bg-brand-navy hover:bg-brand-navy-light disabled:bg-gray-300 text-white font-bold uppercase tracking-wider rounded-lg transition-colors"
             >
-              Post Photo
+              {uploadQueue.filter(i => i.status === 'done').length > 1 ? `Post ${uploadQueue.filter(i => i.status === 'done').length} Photos` : 'Post Photo'}
             </button>
 
           </form>
@@ -1338,7 +1367,6 @@ function GallerySection() {
               </div>
               <div className="p-4 space-y-1 text-xs">
                 <p className="font-bold text-brand-navy truncate">{photo.event_tag}</p>
-                <p className="text-[10px] text-gray-400">by {photo.uploader_name}</p>
               </div>
             </div>
           ))}
