@@ -37,8 +37,8 @@ as $$
 $$;
 
 -- Auto-create a profile row whenever someone signs up via Supabase Auth.
--- The first-ever account with this email becomes super_admin automatically —
--- change the email below to whichever address should be the site owner.
+-- Any account signing up with one of the emails below becomes super_admin
+-- automatically — add/remove emails in this list as needed.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -57,7 +57,10 @@ begin
     new.raw_user_meta_data->>'bio',
     new.raw_user_meta_data->>'avatar_url',
     new.raw_user_meta_data->>'school_photo_url',
-    case when new.email = 'jemuvalos@gmail.com' then 'super_admin' else 'member' end,
+    case
+      when lower(new.email) in ('jemuvalos@gmail.com', 'ian.mugisha011@gmail.com') then 'super_admin'
+      else 'member'
+    end,
     true
   );
   return new;

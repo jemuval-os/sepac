@@ -15,9 +15,12 @@ This creates all tables (profiles, posts, events, gallery, prayer requests, etc.
 security rules, an image storage bucket, and a trigger that auto-creates a profile
 whenever someone signs up.
 
-**Important:** open `supabase-schema.sql` and change every occurrence of
-`jemuvalos@gmail.com` to whichever email should automatically become the site's
-`super_admin` on signup. Anyone else who registers starts as an unapproved `member`.
+**Important:** `supabase-schema.sql`'s `handle_new_user()` trigger already lists two
+emails (`jemuvalos@gmail.com` and `ian.mugisha011@gmail.com`) that automatically
+become `super_admin` on signup. Edit that list in the SQL file — and the matching
+`SUPER_ADMIN_EMAILS` constant in `AuthModal.tsx` and `AdminDashboard.tsx` — if you
+ever need to add/remove a super admin email. Anyone else who registers starts as a
+`member`.
 
 ## 3. Get your API keys
 Project Settings → API:

@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useSEPAC } from '../context/SEPACContext';
 import { UserRole } from '../types';
+
+// Emails that can never be removed via the dashboard (must match the list
+// in supabase-schema.sql's handle_new_user() trigger).
+const SUPER_ADMIN_EMAILS = ['jemuvalos@gmail.com', 'ian.mugisha011@gmail.com'];
 import { 
   Users, 
   FileText, 
@@ -873,7 +877,7 @@ export default function AdminDashboard() {
                               {m.role === 'super_admin' && <option value="super_admin">Super Admin</option>}
                             </select>
                           )}
-                          {isSuperAdmin && m.email !== 'jemuvalos@gmail.com' && (
+                          {isSuperAdmin && !SUPER_ADMIN_EMAILS.includes(m.email.toLowerCase()) && (
                             <button
                               onClick={() => { if (confirm(`Remove ${m.name} from SEPAC? This cannot be undone.`)) deleteMember(m.id); }}
                               className="px-2 py-1 bg-red-600 text-white rounded text-[10px] font-bold hover:bg-red-700 transition-colors flex items-center gap-1"

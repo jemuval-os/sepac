@@ -8,6 +8,10 @@ interface AuthModalProps {
   initialMode?: 'login' | 'register';
 }
 
+// Emails that automatically become super_admin on signup (must match the
+// list in supabase-schema.sql's handle_new_user() trigger).
+const SUPER_ADMIN_EMAILS = ['jemuvalos@gmail.com', 'ian.mugisha011@gmail.com'];
+
 export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: AuthModalProps) {
   const { t, login, register, uploadImageBase64, sendPasswordReset } = useSEPAC();
   const [isLogin, setIsLogin] = useState(initialMode === 'login');
@@ -144,7 +148,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
       });
 
       if (res.success) {
-        if (email.toLowerCase() === 'jemuvalos@gmail.com') {
+        if (SUPER_ADMIN_EMAILS.includes(email.toLowerCase())) {
           // Logged in immediately as Super Admin
           onClose();
         } else {
@@ -350,7 +354,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
               placeholder="name@example.com"
               className="w-full text-xs px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-brand-gold focus:border-brand-gold"
             />
-            {email.toLowerCase() === 'jemuvalos@gmail.com' && (
+            {SUPER_ADMIN_EMAILS.includes(email.toLowerCase()) && (
               <p className="mt-1 text-[10px] text-brand-gold-dark font-bold">
                 ✓ Special Email: This account will register directly as Super Admin.
               </p>
